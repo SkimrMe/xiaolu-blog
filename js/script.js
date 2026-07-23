@@ -43,4 +43,48 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log('%c🌱 小绿的博客加载完成啦！', 'color: #228B22; font-size: 16px; font-weight: bold;');
     console.log('%c绿色上网，花季护航 💚', 'color: #32CD32; font-size: 14px;');
+
+    // ========== 随机小绿图片功能 ==========
+    // gmp3 小绿图片库 - 静态资源列表（GitHub Pages无需后端）
+    // 后续添加更多图片，只需在这里加文件名即可
+    const xiaoluImages = [
+        'img/gallery/xiaolu_avatar.jpg',
+        'img/gallery/lvba_1.jpg',
+        'img/gallery/lvba_2.jpg'
+    ];
+
+    let currentImageIndex = 0;
+    const randomImageEl = document.getElementById('randomXiaoluImage');
+    const refreshBtn = document.getElementById('refreshImageBtn');
+
+    function getRandomImage() {
+        let newIndex;
+        // 确保不重复当前图片
+        do {
+            newIndex = Math.floor(Math.random() * xiaoluImages.length);
+        } while (newIndex === currentImageIndex && xiaoluImages.length > 1);
+
+        currentImageIndex = newIndex;
+
+        // 添加淡入动画
+        randomImageEl.style.opacity = '0';
+        setTimeout(() => {
+            randomImageEl.src = xiaoluImages[currentImageIndex];
+            randomImageEl.style.opacity = '1';
+        }, 200);
+    }
+
+    // 初始化随机显示一张
+    getRandomImage();
+
+    // 点击按钮刷新
+    if (refreshBtn) {
+        refreshBtn.addEventListener('click', getRandomImage);
+    }
+
+    // 点击图片也可以刷新
+    if (randomImageEl) {
+        randomImageEl.addEventListener('click', getRandomImage);
+        randomImageEl.style.cursor = 'pointer';
+    }
 });

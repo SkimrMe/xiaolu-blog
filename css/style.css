@@ -552,3 +552,52 @@ body {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.1); }
 }
+
+/* 随机小绿图片组件 */
+.random-image-container {
+    text-align: center;
+}
+
+.random-image {
+    width: 100%;
+    border-radius: 12px;
+    border: 3px solid var(--green-light);
+    box-shadow: 0 4px 15px var(--shadow);
+    transition: all 0.3s ease;
+    margin-bottom: 0.8rem;
+}
+
+.random-image:hover {
+    border-color: var(--green-main);
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px var(--shadow);
+}
+
+.image-hint {
+    font-size: 0.8rem;
+    color: #81C784;
+    margin-bottom: 0.8rem;
+}
+
+.refresh-btn {
+    background: linear-gradient(135deg, var(--green-light), var(--green-main));
+    color: white;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: inherit;
+    transition: all 0.3s;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.refresh-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow);
+    background: linear-gradient(135deg, var(--green-main), var(--green-deep));
+}
+
+.refresh-btn:active {
+    transform: translateY(0);
+}
