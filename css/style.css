@@ -573,10 +573,34 @@ body {
     box-shadow: 0 6px 20px var(--shadow);
 }
 
-.image-hint {
+.image-info {
     font-size: 0.8rem;
+    color: var(--green-deep);
+    margin-bottom: 0.5rem;
+    padding: 0.3rem 0.6rem;
+    background: var(--cream);
+    border-radius: 8px;
+    border: 1px solid var(--green-light);
+}
+
+.image-info:empty {
+    display: none;
+}
+
+.image-hint {
+    font-size: 0.75rem;
     color: #81C784;
     margin-bottom: 0.8rem;
+    line-height: 1.5;
+}
+
+.image-hint a {
+    color: var(--green-main);
+    text-decoration: none;
+}
+
+.image-hint a:hover {
+    text-decoration: underline;
 }
 
 .refresh-btn {
