@@ -27,16 +27,23 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(createLeaf, i * 200);
     }
 
-    // 导航栏平滑滚动
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    // 导航栏链接处理：阻止空链接跳转到顶部
+    document.querySelectorAll('a[href="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            // 给用户反馈：点击导航时平滑滚动到顶部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+
+    // 带锚点的链接平滑滚动（保留原有功能）
+    document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
             const href = this.getAttribute('href');
-            if (href !== '#') {
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
+            const target = document.querySelector(href);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
             }
         });
     });
