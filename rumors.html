@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>流言墙 - 小绿的博客</title>
+    <title>留言墙 - 小绿的博客</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -169,9 +169,9 @@
                 <li><a href="gallery.html">相册</a></li>
                 <li><a href="game.html">🎮 小游戏</a></li>
                 <li><a href="memories.html">回忆</a></li>
-                <li><a href="rumors.html" class="active">流言</a></li>
+                <li><a href="rumors.html" class="active">💬 留言墙</a></li>
+                <li><a href="guestbook.html">📝 留言板</a></li>
                 <li><a href="about.html">关于</a></li>
-                <li><a href="guestbook.html">留言板</a></li>
             </ul>
         </div>
     </nav>
@@ -179,21 +179,24 @@
     <main class="main-container">
         <div class="content">
             <div class="rumor-intro">
-                <h2>🌿 过 路 留 言</h2>
-                <p>这里是大家的碎碎念墙！不管是日常吐槽、心情感悟、还是想说的悄悄话，<br>都可以通过 PR 提交，审核通过后就会显示在这里哦～ <span class="heart">💚</span></p>
+                <h2>🌿 过 路 留 言 墙</h2>
+                <p>这里是公开永久留言墙！不管是日常吐槽、心情感悟、还是想说的悄悄话，<br>都可以通过 PR 提交，审核通过后就会公开展示在这里哦～ <span class="heart">💚</span></p>
+                <p style="margin-top: 0.8rem; font-size: 0.9rem; opacity: 0.8;">
+                    💡 功能区分：本页内容为公开永久留言，所有人可见；如需临时本地留言请前往<a href="guestbook.html" style="color: var(--green-main);">留言板</a>
+                </p>
             </div>
 
             <div class="rumor-wall" id="rumorsContainer">
-                <!-- 流言条目由JS加载 -->
+                <!-- 留言条目由JS加载 -->
             </div>
 
             <div class="submit-box">
-                <h3>📝 如何提交你的流言？</h3>
+                <h3>📝 如何提交你的留言？</h3>
 
                 <div class="submit-steps">
                     <ol>
                         <li>Fork 本项目仓库：<a href="https://github.com/sfghgy249/xiaolu-blog" target="_blank" style="color: var(--green-main);">github.com/sfghgy249/xiaolu-blog</a></li>
-                        <li>在 <code>data/rumors.json</code> 文件末尾按格式添加你的流言条目</li>
+                        <li>在 <code>data/rumors.json</code> 文件末尾按格式添加你的留言条目</li>
                         <li>提交 Pull Request，等待管理员审核合并</li>
                         <li>合并后GitHub Pages自动部署，刷新页面就能看到你的留言啦！</li>
                     </ol>
@@ -236,7 +239,7 @@
             <div class="sidebar-widget">
                 <h3 class="widget-title">📊 统 计</h3>
                 <p style="text-align: center; font-size: 0.9rem; color: var(--green-deep); line-height: 1.8;">
-                    流言总数：<strong id="rumorCount">0</strong><br>
+                    留言总数：<strong id="rumorCount">0</strong><br>
                     最新更新：<span id="latestDate"></span><br>
                     数据来源：GitHub PR
                 </p>
@@ -281,15 +284,15 @@
                 <ul>
                     <li><a href="index.html">首页</a></li>
                     <li><a href="memories.html">回忆</a></li>
-                    <li><a href="rumors.html">流言</a></li>
-                    <li><a href="guestbook.html">留言板</a></li>
+                    <li><a href="rumors.html">💬 留言墙</a></li>
+                <li><a href="guestbook.html">📝 留言板</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h4>💚 友情提示</h4>
                 <p>
                     留下你的只言片语<br>
-                    <a href="https://github.com/sfghgy249/xiaolu-blog/fork" target="_blank" style="color: var(--green-light);">提交流言 PR →</a>
+                    <a href="https://github.com/sfghgy249/xiaolu-blog/fork" target="_blank" style="color: var(--green-light);">提交留言 PR →</a>
                 </p>
             </div>
         </div>
@@ -335,8 +338,8 @@
                 document.getElementById('latestDate').textContent = rumors[0]?.date || '-';
 
             } catch (e) {
-                container.innerHTML = '<p style="text-align: center; color: #999;">流言加载失败，请刷新重试～</p>';
-                console.error('加载流言失败:', e);
+                container.innerHTML = '<p style="text-align: center; color: #999;">留言加载失败，请刷新重试～</p>';
+                console.error('加载留言失败:', e);
             }
         });
     </script>
