@@ -27,12 +27,14 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(createLeaf, i * 200);
     }
 
-    // 导航栏链接处理：阻止空链接跳转到顶部
+    // 导航栏/所有空链接处理：阻止默认跳转到顶部行为
     document.querySelectorAll('a[href="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            // 给用户反馈：点击导航时平滑滚动到顶部
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            e.stopPropagation();
+            // 功能待开发，不做任何跳转或滚动
+            // 可选：显示开发中提示
+            // this.setAttribute('title', '功能开发中...');
         });
     });
 
