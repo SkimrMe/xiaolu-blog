@@ -27,18 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(createLeaf, i * 200);
     }
 
-    // 导航栏/所有空链接处理：阻止默认跳转到顶部行为
-    document.querySelectorAll('a[href="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            // 功能待开发，不做任何跳转或滚动
-            // 可选：显示开发中提示
-            // this.setAttribute('title', '功能开发中...');
-        });
-    });
-
-    // 带锚点的链接平滑滚动（保留原有功能）
+    // 带锚点的链接平滑滚动（页面内跳转使用）
     document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();

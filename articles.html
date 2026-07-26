@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小绿的博客 - 花季护航</title>
+    <title>文章列表 - 小绿的博客</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -11,24 +11,20 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
 </head>
 <body>
-    <!-- 飘落叶子 -->
     <div class="leaves" id="leaves"></div>
 
-    <!-- 头部 -->
     <header class="header">
         <div class="logo-container">
-            <h1 class="logo-text">🌱 小绿的博客 🌱</h1>
-            <p class="logo-sub">～ 花季护航 · 绿色上网 ～</p>
-            <div class="birthday-badge">🎂 生日：2009年6月11日</div>
+            <h1 class="logo-text">🌱 文 章 列 表 🌱</h1>
+            <p class="logo-sub">～ 小绿的博客文章合集 ～</p>
         </div>
     </header>
 
-    <!-- 导航栏 -->
     <nav class="navbar">
         <div class="nav-container">
             <ul>
-                <li><a href="index.html" class="active">首页</a></li>
-                <li><a href="articles.html">文章</a></li>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="articles.html" class="active">文章</a></li>
                 <li><a href="diary.html">日记</a></li>
                 <li><a href="gallery.html">相册</a></li>
                 <li><a href="game.html">🎮 小游戏</a></li>
@@ -38,21 +34,8 @@
         </div>
     </nav>
 
-    <!-- 主内容区 -->
     <main class="main-container">
         <div class="content">
-            <!-- 欢迎横幅 -->
-            <div class="welcome-banner">
-                <div class="xiaolu-avatar">
-                    <img src="img/xiaolu_avatar.jpg" alt="小绿头像" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
-                </div>
-                <div class="welcome-text">
-                    <h2>欢迎来到小绿的博客！</h2>
-                    <p>大家好～我是小绿，也叫格林达姆！这里是我的个人博客，记录我的日常和一些有趣的事情。绿色上网，花季护航，让我们一起度过美好的上网时光～ <span class="heart">💚</span></p>
-                </div>
-            </div>
-
-            <!-- 文章列表 -->
             <article class="post-card">
                 <div class="post-thumbnail">🌸</div>
                 <div class="post-content">
@@ -67,7 +50,6 @@
                         <span class="tag">#新博客</span>
                         <span class="tag">#开心</span>
                     </div>
-                    <a href="articles.html" class="read-more">阅读更多 →</a>
                 </div>
             </article>
 
@@ -85,7 +67,6 @@
                         <span class="tag">#网络安全</span>
                         <span class="tag">#健康上网</span>
                     </div>
-                    <a href="articles.html" class="read-more">阅读更多 →</a>
                 </div>
             </article>
 
@@ -103,12 +84,11 @@
                         <span class="tag">#纪念</span>
                         <span class="tag">#感谢</span>
                     </div>
-                    <a href="articles.html" class="read-more">阅读更多 →</a>
                 </div>
             </article>
 
             <article class="post-card">
-                <div class="post-thumbnail">🌿</div>
+                <div class="post-thumbnail">🎈</div>
                 <div class="post-content">
                     <span class="post-date">2026-06-01</span>
                     <h2 class="post-title">六一儿童节快乐！</h2>
@@ -121,7 +101,6 @@
                         <span class="tag">#快乐</span>
                         <span class="tag">#童心</span>
                     </div>
-                    <a href="articles.html" class="read-more">阅读更多 →</a>
                 </div>
             </article>
 
@@ -139,24 +118,20 @@
                         <span class="tag">#绿坝</span>
                         <span class="tag">#回忆</span>
                     </div>
-                    <a href="articles.html" class="read-more">阅读更多 →</a>
                 </div>
             </article>
 
-            <!-- 分页 -->
             <div class="pagination">
-                <a href="articles.html" class="page-link">« 上一页</a>
-                <a href="articles.html" class="page-link active">1</a>
-                <a href="articles.html" class="page-link">2</a>
-                <a href="articles.html" class="page-link">3</a>
+                <a href="#" class="page-link">« 上一页</a>
+                <a href="#" class="page-link active">1</a>
+                <a href="#" class="page-link">2</a>
+                <a href="#" class="page-link">3</a>
                 <span class="page-dots">...</span>
-                <a href="articles.html" class="page-link">下一页 »</a>
+                <a href="#" class="page-link">下一页 »</a>
             </div>
         </div>
 
-        <!-- 侧边栏 -->
         <aside class="sidebar">
-            <!-- 个人信息 -->
             <div class="sidebar-widget">
                 <h3 class="widget-title">🌱 关 于 我 🌱</h3>
                 <div class="profile-avatar">
@@ -167,89 +142,25 @@
                     绿坝-花季护航形象<br>
                     生日：2009年6月11日<br>
                     喜欢：绿色、大自然、小朋友<br>
-                    不喜欢：不良信息 <span class="heart">💚</span>
+                    不喜欢：不良信息 💚
                 </p>
             </div>
 
-            <!-- 花季护航提示 -->
             <div class="sidebar-widget">
-                <div class="guardian-box">
-                    <div class="icon">🛡️</div>
-                    <p>
-                        <strong>花季护航</strong><br>
-                        健康上网 · 快乐成长<br>
-                        小绿一直在守护你哦～
-                    </p>
-                </div>
-            </div>
-
-            <!-- 最新文章 -->
-            <div class="sidebar-widget">
-                <h3 class="widget-title">📝 最 新 文 章</h3>
-                <ul class="latest-posts">
-                    <li>
-                        <a href="articles.html">博客重新开张啦！</a>
-                        <span class="latest-date">2026-07-23</span>
-                    </li>
-                    <li>
-                        <a href="articles.html">绿色上网小贴士</a>
-                        <span class="latest-date">2026-07-20</span>
-                    </li>
-                    <li>
-                        <a href="articles.html">我的生日到啦！</a>
-                        <span class="latest-date">2026-06-11</span>
-                    </li>
-                    <li>
-                        <a href="articles.html">六一儿童节快乐！</a>
-                        <span class="latest-date">2026-06-01</span>
-                    </li>
-                    <li>
-                        <a href="articles.html">关于绿坝-花季护航</a>
-                        <span class="latest-date">2026-05-15</span>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- 标签云 -->
-            <div class="sidebar-widget">
-                <h3 class="widget-title">🏷️ 标 签 云</h3>
+                <h3 class="widget-title">🏷️ 文 章 分 类</h3>
                 <div class="tag-cloud">
-                    <a href="articles.html" class="tag-item">日常</a>
-                    <a href="articles.html" class="tag-item">网络安全</a>
-                    <a href="articles.html" class="tag-item">小贴士</a>
-                    <a href="articles.html" class="tag-item">回忆</a>
-                    <a href="articles.html" class="tag-item">生日</a>
-                    <a href="articles.html" class="tag-item">节日</a>
-                    <a href="articles.html" class="tag-item">科普</a>
-                    <a href="diary.html" class="tag-item">心情</a>
-                    <a href="gallery.html" class="tag-item">绿色</a>
-                    <a href="about.html" class="tag-item">守护</a>
+                    <a href="#" class="tag-item">日常</a>
+                    <a href="#" class="tag-item">网络安全</a>
+                    <a href="#" class="tag-item">小贴士</a>
+                    <a href="#" class="tag-item">回忆</a>
+                    <a href="#" class="tag-item">生日</a>
+                    <a href="#" class="tag-item">节日</a>
+                    <a href="#" class="tag-item">科普</a>
                 </div>
-            </div>
-
-            <!-- 随机小绿图片 -->
-            <div class="sidebar-widget">
-                <h3 class="widget-title">🖼️ 小 绿 图 鉴</h3>
-                <div class="random-image-container">
-                    <img id="randomXiaoluImage" src="img/gallery/xiaolu_avatar.jpg" alt="随机小绿图片" class="random-image">
-                    <p id="imageInfo" class="image-info"></p>
-                    <p class="image-hint">图片来源：<a href="https://greendam.icu/" target="_blank" rel="noopener">greendam.icu</a><br>点击图片换一张～</p>
-                    <button id="refreshImageBtn" class="refresh-btn">🔄 换一张</button>
-                </div>
-            </div>
-
-            <!-- 联系方式 -->
-            <div class="sidebar-widget">
-                <h3 class="widget-title">💌 留 言 联 系</h3>
-                <p style="text-align: center; font-size: 0.9rem; color: var(--green-deep);">
-                    欢迎在<a href="guestbook.html" style="color: var(--green-main);">留言板</a>给我留言～<br>
-                    每条留言我都会认真看哦！
-                </p>
             </div>
         </aside>
     </main>
 
-    <!-- 页脚 -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
@@ -269,11 +180,10 @@
                 </ul>
             </div>
             <div class="footer-section">
-                <h4>💚 友情提示</h4>
+                <h4>💚 游戏</h4>
                 <p>
-                    合理安排上网时间<br>
-                    享受健康网上生活<br>
-                    <a href="game.html" style="color: var(--green-light);">来玩吃豆人小游戏 →</a>
+                    来玩小绿吃豆人吧！<br>
+                    <a href="game.html" style="color: var(--green-light);">点击进入游戏 →</a>
                 </p>
             </div>
         </div>

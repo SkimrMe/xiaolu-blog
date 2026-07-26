@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于小绿 - 小绿的博客</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+    <style>
+        .about-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px var(--shadow);
+            border: 1px solid #C8E6C9;
+            margin-bottom: 1.5rem;
+        }
+        .about-card h3 {
+            color: var(--green-dark);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px dashed var(--green-light);
+        }
+        .about-card p, .about-card li {
+            color: var(--green-deep);
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+        }
+        .about-card ul {
+            padding-left: 1.5rem;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .info-item {
+            background: var(--cream);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid var(--green-light);
+        }
+        .info-label {
+            font-size: 0.85rem;
+            color: #81C784;
+            margin-bottom: 0.3rem;
+        }
+        .info-value {
+            font-weight: bold;
+            color: var(--green-dark);
+        }
+    </style>
+</head>
+<body>
+    <div class="leaves" id="leaves"></div>
+
+    <header class="header">
+        <div class="logo-container">
+            <h1 class="logo-text">🌱 关 于 小 绿 🌱</h1>
+            <p class="logo-sub">～ 认识一下格林达姆吧 ～</p>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="articles.html">文章</a></li>
+                <li><a href="diary.html">日记</a></li>
+                <li><a href="gallery.html">相册</a></li>
+                <li><a href="game.html">🎮 小游戏</a></li>
+                <li><a href="about.html" class="active">关于</a></li>
+                <li><a href="guestbook.html">留言板</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="content">
+            <div class="welcome-banner">
+                <div class="xiaolu-avatar">
+                    <img src="img/xiaolu_avatar.jpg" alt="小绿头像" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                </div>
+                <div class="welcome-text">
+                    <h2>你好呀！我是小绿～</h2>
+                    <p>也有人叫我格林达姆（GreenDam），是「绿坝-花季护航」的拟人化形象。很高兴认识你！<span class="heart">💚</span></p>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <h3>📋 基本资料</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">名字</div>
+                        <div class="info-value">小绿 / 格林达姆</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">英文名</div>
+                        <div class="info-value">GreenDam</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">生日</div>
+                        <div class="info-value">2009年6月11日</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">代表色</div>
+                        <div class="info-value">绿色 💚</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <h3>💚 关于绿坝-花季护航</h3>
+                <p>「绿坝-花季护航」是一款曾经的上网过滤软件，初衷是为了保护未成年人健康上网，过滤不良信息。我作为这个软件的拟人化形象，被大家亲切地称为"小绿"或者"绿坝娘"。</p>
+                <p>虽然软件已经渐渐淡出大家的视野，但是这么多年来，谢谢大家还记得我，创作了那么多可爱的同人图和同人作品。我会继续在这里，守护大家的网上冲浪时光～</p>
+            </div>
+
+            <div class="about-card">
+                <h3>🌿 我的喜好</h3>
+                <ul>
+                    <li>✅ 喜欢：绿色、大自然、小朋友、夏天、冰淇淋、听音乐</li>
+                    <li>✅ 喜欢：大家在留言板给我留言、看到大家开心上网</li>
+                    <li>❌ 不喜欢：不良信息、网络暴力、欺负小朋友的人</li>
+                    <li>✅ 愿望：希望每个小朋友都能健康快乐地在网上冲浪</li>
+                </ul>
+            </div>
+
+            <div class="about-card">
+                <h3>🎮 博客功能</h3>
+                <ul>
+                    <li>📝 文章：不定期更新小文章和小贴士</li>
+                    <li>📔 日记：记录我的日常碎碎念</li>
+                    <li>🖼️ 相册：收集了很多绿坝娘同人图</li>
+                    <li>🎮 小游戏：小绿吃豆人，无聊时可以玩一玩</li>
+                    <li>💌 留言板：有什么想对我说的都可以留言哦！</li>
+                </ul>
+            </div>
+
+            <div class="about-card">
+                <h3>💡 绿色上网小贴士</h3>
+                <p>1. 不要随便在网上透露自己的个人信息（姓名、地址、学校、电话等）</p>
+                <p>2. 不要随便和网上认识的人见面，如果一定要见请告诉家长并去公共场所</p>
+                <p>3. 合理安排上网时间，不要沉迷网络，多出去走走看看大自然</p>
+                <p>4. 遇到不良信息或网络暴力，及时告诉家长或老师</p>
+                <p>5. 保护好自己的密码，不要随便告诉别人</p>
+                <p style="margin-top: 1rem; text-align: center; color: var(--green-main); font-weight: bold;">
+                    健康上网，快乐成长！💚
+                </p>
+            </div>
+        </div>
+
+        <aside class="sidebar">
+            <div class="sidebar-widget">
+                <h3 class="widget-title">🎂 生日贺图</h3>
+                <div class="random-image-container">
+                    <img id="birthdayImage" src="img/gallery/xiaolu_avatar.jpg" alt="小绿图片" class="random-image">
+                    <p style="text-align: center; font-size: 0.85rem; color: var(--green-deep); margin-top: 0.5rem;">
+                        每年的生日大家都会给我画贺图，谢谢大家！
+                    </p>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>🌱 小绿的博客</h4>
+                <p>
+                    绿色上网 · 花季护航<br>
+                    守护每一份纯真与美好
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>🔗 导航</h4>
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="articles.html">文章</a></li>
+                    <li><a href="about.html">关于</a></li>
+                    <li><a href="guestbook.html">留言板</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2009 - 2026 小绿（格林达姆）· 绿坝-花季护航</p>
+            <p style="margin-top: 0.5rem; opacity: 0.6;">Made with 💚 for healthy internet</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        // 随机加载一张生日贺图
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                const response = await fetch('https://greendam.icu/js/images.js');
+                const text = await response.text();
+                const match = text.match(/const IMAGES = \[([\s\S]*?)\];/);
+                if (match) {
+                    const allImages = match[1].match(/'([^']+)'/g)?.map(s => s.slice(1, -1)) || [];
+                    // 筛选包含"生日"或"贺图"的图片
+                    const birthdayImages = allImages.filter(img => img.includes('生日') || img.includes('贺图'));
+                    if (birthdayImages.length > 0) {
+                        const randomImg = birthdayImages[Math.floor(Math.random() * birthdayImages.length)];
+                        document.getElementById('birthdayImage').src = 'https://greendam.icu/images/' + encodeURIComponent(randomImg);
+                    }
+                }
+            } catch(e) {}
+        });
+    </script>
+</body>
+</html>

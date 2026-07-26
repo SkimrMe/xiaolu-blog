@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言板 - 小绿的博客</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+    <style>
+        .guestbook-form {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px var(--shadow);
+            border: 1px solid var(--green-light);
+            margin-bottom: 2rem;
+        }
+        .guestbook-form h3 {
+            color: var(--green-dark);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px dashed var(--green-light);
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--green-deep);
+            font-weight: 500;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--green-light);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            background: var(--cream);
+            color: var(--green-dark);
+            box-sizing: border-box;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--green-main);
+            background: white;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .submit-btn {
+            background: linear-gradient(135deg, var(--green-light), var(--green-main));
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: inherit;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px var(--shadow);
+            background: linear-gradient(135deg, var(--green-main), var(--green-deep));
+        }
+        .message-list {
+            margin-top: 2rem;
+        }
+        .message-item {
+            background: white;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--green-light);
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px dashed var(--green-light);
+        }
+        .message-author {
+            font-weight: bold;
+            color: var(--green-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .message-date {
+            font-size: 0.8rem;
+            color: #81C784;
+        }
+        .message-content {
+            color: var(--green-deep);
+            line-height: 1.7;
+        }
+        .message-note {
+            background: var(--cream);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--green-main);
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--green-deep);
+        }
+    </style>
+</head>
+<body>
+    <div class="leaves" id="leaves"></div>
+
+    <header class="header">
+        <div class="logo-container">
+            <h1 class="logo-text">🌱 留 言 板 🌱</h1>
+            <p class="logo-sub">～ 给小绿留言吧～</p>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="articles.html">文章</a></li>
+                <li><a href="diary.html">日记</a></li>
+                <li><a href="gallery.html">相册</a></li>
+                <li><a href="game.html">🎮 小游戏</a></li>
+                <li><a href="about.html">关于</a></li>
+                <li><a href="guestbook.html" class="active">留言板</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="content">
+            <div class="welcome-banner">
+                <div class="xiaolu-avatar">
+                    <img src="img/xiaolu_avatar.jpg" alt="小绿头像" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                </div>
+                <div class="welcome-text">
+                    <h2>欢迎来留言～</h2>
+                    <p>有什么想对我说的话，或者想分享的事情，都可以在这里留言哦！小绿每条都会认真看的～ <span class="heart">💚</span></p>
+                </div>
+            </div>
+
+            <div class="guestbook-form">
+                <h3>💌 写下你的留言</h3>
+                <div class="form-group">
+                    <label for="name">你的昵称</label>
+                    <input type="text" id="name" placeholder="请输入你的昵称" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">留言内容</label>
+                    <textarea id="message" placeholder="想对小绿说什么呢～" required></textarea>
+                </div>
+                <button class="submit-btn" id="submitBtn">💚 提交留言</button>
+                <div class="message-note">
+                    ℹ️ 提示：由于是静态GitHub Pages网站，留言保存在浏览器本地存储中，清除浏览器数据会丢失留言。
+                </div>
+            </div>
+
+            <div class="message-list">
+                <h3 style="color: var(--green-dark); margin-bottom: 1rem;">📬 留言列表</h3>
+                <div id="messagesContainer">
+                    <!-- 留言由JS动态加载 -->
+                </div>
+            </div>
+        </div>
+
+        <aside class="sidebar">
+            <div class="sidebar-widget">
+                <h3 class="widget-title">💡 留 言 须 知</h3>
+                <p style="font-size: 0.9rem; color: var(--green-deep); line-height: 1.8;">
+                    ✅ 友好交流<br>
+                    ✅ 文明发言<br>
+                    ✅ 分享开心事<br>
+                    ❌ 不要发广告<br>
+                    ❌ 不要发不良信息<br>
+                    ❌ 不要人身攻击<br><br>
+                    绿色上网，从我做起！💚
+                </p>
+            </div>
+
+            <div class="sidebar-widget">
+                <div class="guardian-box">
+                    <div class="icon">🌱</div>
+                    <p>
+                        <strong>小绿在看哦</strong><br>
+                        每一条留言我都会认真看的！<br>
+                        谢谢大家的支持～
+                    </p>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>🌱 小绿的博客</h4>
+                <p>
+                    绿色上网 · 花季护航<br>
+                    守护每一份纯真与美好
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>🔗 导航</h4>
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="articles.html">文章</a></li>
+                    <li><a href="about.html">关于</a></li>
+                    <li><a href="guestbook.html">留言板</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2009 - 2026 小绿（格林达姆）· 绿坝-花季护航</p>
+            <p style="margin-top: 0.5rem; opacity: 0.6;">Made with 💚 for healthy internet</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        // 留言板本地存储逻辑
+        document.addEventListener('DOMContentLoaded', function() {
+            const STORAGE_KEY = 'xiaolu_guestbook_messages';
+            const messagesContainer = document.getElementById('messagesContainer');
+            const submitBtn = document.getElementById('submitBtn');
+            const nameInput = document.getElementById('name');
+            const messageInput = document.getElementById('message');
+
+            // 加载留言
+            function loadMessages() {
+                const messages = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+                if (messages.length === 0) {
+                    // 默认示例留言
+                    messages.push({
+                        name: '小绿',
+                        message: '欢迎大家来留言板玩呀～有什么想对我说的话都可以写在这里哦！💚',
+                        date: '2026-07-26'
+                    });
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+                }
+                renderMessages(messages);
+            }
+
+            function renderMessages(messages) {
+                messagesContainer.innerHTML = '';
+                // 倒序显示最新留言在最前
+                [...messages].reverse().forEach(msg => {
+                    const item = document.createElement('div');
+                    item.className = 'message-item';
+                    item.innerHTML = `
+                        <div class="message-header">
+                            <span class="message-author">🌱 ${msg.name}</span>
+                            <span class="message-date">${msg.date}</span>
+                        </div>
+                        <div class="message-content">${escapeHtml(msg.message)}</div>
+                    `;
+                    messagesContainer.appendChild(item);
+                });
+            }
+
+            function escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            submitBtn.addEventListener('click', function() {
+                const name = nameInput.value.trim();
+                const message = messageInput.value.trim();
+                if (!name || !message) {
+                    alert('请填写昵称和留言内容哦～');
+                    return;
+                }
+
+                const messages = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+                messages.push({
+                    name: name,
+                    message: message,
+                    date: new Date().toISOString().split('T')[0]
+                });
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+
+                nameInput.value = '';
+                messageInput.value = '';
+                renderMessages(messages);
+                alert('留言成功！小绿会看到的～💚');
+            });
+
+            loadMessages();
+        });
+    </script>
+</body>
+</html>
