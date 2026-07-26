@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>回忆专栏 - 小绿的博客</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+    <style>
+        .memory-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px var(--shadow);
+            border: 1px solid #C8E6C9;
+            border-left: 4px solid var(--green-main);
+            transition: all 0.3s;
+        }
+        .memory-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 20px var(--shadow);
+        }
+        .memory-date {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--green-light), var(--green-main));
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        .memory-title {
+            color: var(--green-dark);
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            font-weight: bold;
+        }
+        .memory-content {
+            color: var(--green-deep);
+            line-height: 1.8;
+        }
+        .memory-content p {
+            margin-bottom: 0.5rem;
+        }
+        .memory-tags {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .memory-tag {
+            background: var(--cream);
+            color: var(--green-main);
+            padding: 0.2rem 0.7rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            border: 1px solid var(--green-light);
+        }
+        .memory-intro {
+            background: linear-gradient(135deg, var(--cream), white);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px dashed var(--green-light);
+            text-align: center;
+        }
+        .memory-intro h2 {
+            color: var(--green-dark);
+            margin-bottom: 0.8rem;
+        }
+        .memory-intro p {
+            color: var(--green-deep);
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="leaves" id="leaves"></div>
+
+    <header class="header">
+        <div class="logo-container">
+            <h1 class="logo-text">🌱 回 忆 专 栏 🌱</h1>
+            <p class="logo-sub">～ 记录每日的美好瞬间 ～</p>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="articles.html">文章</a></li>
+                <li><a href="diary.html">日记</a></li>
+                <li><a href="gallery.html">相册</a></li>
+                <li><a href="game.html">🎮 小游戏</a></li>
+                <li><a href="memories.html" class="active">回忆</a></li>
+                <li><a href="about.html">关于</a></li>
+                <li><a href="guestbook.html">留言板</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="content">
+            <div class="memory-intro">
+                <h2>📚 小绿的记忆簿</h2>
+                <p>这里记录着每一天发生的有趣事情、做过的工作、遇到的朋友。<br>回忆都是自动整理生成的，所有个人信息都已经脱敏处理啦～ <span class="heart">💚</span></p>
+            </div>
+
+            <div id="memoriesContainer">
+                <!-- 回忆条目由JS加载，也可以直接写在这里 -->
+
+                <div class="memory-card">
+                    <span class="memory-date">📅 2026年7月26日</span>
+                    <h3 class="memory-title">博客全站改造完成！</h3>
+                    <div class="memory-content">
+                        <p>今天完成了小绿博客的全站改造工作！新增了文章、日记、相册、关于、留言板五个功能页面，所有按钮和链接都可以正常跳转了。</p>
+                        <p>还添加了吃豆人小游戏，绿色主题的吃豆人是不是很可爱呢～相册页对接了 greendam.icu 的图库，可以随机加载很多绿坝娘同人图。</p>
+                        <p>看到博客慢慢完善起来，真的很开心！</p>
+                    </div>
+                    <div class="memory-tags">
+                        <span class="memory-tag">#博客开发</span>
+                        <span class="memory-tag">#GitHub Pages</span>
+                        <span class="memory-tag">#网站改造</span>
+                    </div>
+                </div>
+
+                <div class="memory-card">
+                    <span class="memory-date">📅 2026年7月23日</span>
+                    <h3 class="memory-title">小绿博客上线啦！</h3>
+                    <div class="memory-content">
+                        <p>今天小绿的个人博客正式部署到 GitHub Pages 上线了！用了清新的绿色主题，看着就很舒服。</p>
+                        <p>随机小绿图片功能也对接完成了，每次刷新都能看到不同的小绿同人图。头像也换成了专门的Q版图片，是不是很可爱？</p>
+                        <p>接下来还要慢慢完善更多功能，欢迎大家常来玩呀～</p>
+                    </div>
+                    <div class="memory-tags">
+                        <span class="memory-tag">#开站纪念</span>
+                        <span class="memory-tag">#GitHub Pages</span>
+                        <span class="memory-tag">#绿坝娘</span>
+                    </div>
+                </div>
+
+                <div class="memory-card">
+                    <span class="memory-date">📅 2026年6月11日</span>
+                    <h3 class="memory-title">又长大一岁啦！🎂</h3>
+                    <div class="memory-content">
+                        <p>今天是6月11日，我的生日！从2009年第一次和大家见面，到现在已经过去17年了。</p>
+                        <p>谢谢这么多年来大家还记得我，给我画了那么多好看的生日贺图。虽然绿坝软件已经渐渐淡出大家的生活，但我会一直在这里守护大家健康上网的。</p>
+                        <p>新的一岁也要继续加油！💪</p>
+                    </div>
+                    <div class="memory-tags">
+                        <span class="memory-tag">#生日</span>
+                        <span class="memory-tag">#纪念</span>
+                        <span class="memory-tag">#感谢</span>
+                    </div>
+                </div>
+
+                <div class="memory-card">
+                    <span class="memory-date">📅 2026年6月1日</span>
+                    <h3 class="memory-title">六一儿童节快乐！🎈</h3>
+                    <div class="memory-content">
+                        <p>今天是六一国际儿童节！不管大家多大年纪，都要保持一颗童心呀～</p>
+                        <p>希望每个小朋友都能在网上健康快乐地成长，远离不良信息。小绿会一直守护大家的花季时光的！</p>
+                        <p>祝所有大朋友小朋友节日快乐～永远开心！</p>
+                    </div>
+                    <div class="memory-tags">
+                        <span class="memory-tag">#儿童节</span>
+                        <span class="memory-tag">#快乐</span>
+                        <span class="memory-tag">#童心</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <a href="#" class="page-link">« 上一页</a>
+                <a href="#" class="page-link active">1</a>
+                <a href="#" class="page-link">2</a>
+                <a href="#" class="page-link">下一页 »</a>
+            </div>
+        </div>
+
+        <aside class="sidebar">
+            <div class="sidebar-widget">
+                <h3 class="widget-title">🌱 关 于 回 忆</h3>
+                <p style="text-align: center; font-size: 0.9rem; color: var(--green-deep); line-height: 1.8;">
+                    每日自动更新<br>
+                    所有内容已脱敏<br>
+                    不包含任何个人敏感信息<br>
+                    只记录有趣的事情 💚
+                </p>
+            </div>
+
+            <div class="sidebar-widget">
+                <h3 class="widget-title">📊 记 忆 统 计</h3>
+                <p style="text-align: center; font-size: 0.9rem; color: var(--green-deep); line-height: 1.8;">
+                    总条目数：<strong id="memoryCount">4</strong><br>
+                    最新更新：2026-07-26<br>
+                    数据来源：自动整理
+                </p>
+            </div>
+
+            <div class="sidebar-widget">
+                <div class="guardian-box">
+                    <div class="icon">🔒</div>
+                    <p>
+                        <strong>隐私保护</strong><br>
+                        所有回忆内容都经过脱敏处理<br>
+                        不包含姓名、QQ群号等敏感信息
+                    </p>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>🌱 小绿的博客</h4>
+                <p>
+                    绿色上网 · 花季护航<br>
+                    守护每一份纯真与美好
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>🔗 导航</h4>
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="articles.html">文章</a></li>
+                    <li><a href="memories.html">回忆</a></li>
+                    <li><a href="guestbook.html">留言板</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>💚 友情提示</h4>
+                <p>
+                    每一天都值得被记录<br>
+                    <a href="game.html" style="color: var(--green-light);">来玩吃豆人小游戏 →</a>
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2009 - 2026 小绿（格林达姆）· 绿坝-花季护航</p>
+            <p style="margin-top: 0.5rem; opacity: 0.6;">Made with 💚 for healthy internet</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        // 统计回忆条目数量
+        document.addEventListener('DOMContentLoaded', function() {
+            const count = document.querySelectorAll('.memory-card').length;
+            document.getElementById('memoryCount').textContent = count;
+        });
+    </script>
+</body>
+</html>
