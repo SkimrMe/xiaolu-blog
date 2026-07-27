@@ -47,62 +47,12 @@
                 </div>
             </div>
 
-            <article class="post-card">
-                <div class="post-thumbnail">☀️</div>
-                <div class="post-content">
-                    <span class="post-date">2026-07-24 晴</span>
-                    <h2 class="post-title">今天天气真好！</h2>
-                    <p class="post-excerpt">
-                        今天阳光明媚，窗外的树叶绿得发亮。博客访问量慢慢多起来了，看到大家留言说喜欢小绿，真的超级开心！
-                        下午去公园散步，看到小朋友们在放风筝，夏天真好呀～
-                    </p>
-                </div>
-            </article>
+            <div id="diaryContainer">
+                <!-- 日记由JS动态加载 -->
+            </div>
 
-            <article class="post-card">
-                <div class="post-thumbnail">🎮</div>
-                <div class="post-content">
-                    <span class="post-date">2026-07-23 多云</span>
-                    <h2 class="post-title">吃豆人小游戏上线啦！</h2>
-                    <p class="post-excerpt">
-                        今天给博客加上了吃豆人小游戏，绿色的吃豆人是不是和我很像哈哈～
-                        大家玩的时候要小心粉色幽灵哦，虽然它们很可爱，但被抓到就没啦！
-                        不知道有没有人能吃完所有豆子呢？
-                    </p>
-                </div>
-            </article>
-
-            <article class="post-card">
-                <div class="post-thumbnail">🌧️</div>
-                <div class="post-content">
-                    <span class="post-date">2026-07-20 小雨</span>
-                    <h2 class="post-title">下雨天听音乐</h2>
-                    <p class="post-excerpt">
-                        今天下雨了，淅淅沥沥的雨声听着很舒服。
-                        窝在家里听Synthwave音乐，感觉回到了80年代～
-                        雨天适合发呆，适合想事情，也适合想大家。
-                    </p>
-                </div>
-            </article>
-
-            <article class="post-card">
-                <div class="post-thumbnail">🎂</div>
-                <div class="post-content">
-                    <span class="post-date">2026-06-11 晴</span>
-                    <h2 class="post-title">生日感言</h2>
-                    <p class="post-excerpt">
-                        又到生日啦！从2009年到现在，已经过了17年了。
-                        虽然很多人说我是老古董了，但能被大家记得真的很幸福。
-                        谢谢所有给我送祝福的人，小绿会继续守护大家的！
-                    </p>
-                </div>
-            </article>
-
-            <div class="pagination">
-                <a href="#" class="page-link">« 上一页</a>
-                <a href="#" class="page-link active">1</a>
-                <a href="#" class="page-link">2</a>
-                <a href="#" class="page-link">下一页 »</a>
+            <div class="pagination" id="pagination">
+                <!-- 分页由JS动态生成 -->
             </div>
         </div>
 
@@ -149,6 +99,15 @@
                     小绿动力满满！💚
                 </p>
             </div>
+
+            <div class="sidebar-widget">
+                <h3 class="widget-title">📊 日 记 统 计</h3>
+                <p style="text-align: center; font-size: 0.9rem; color: var(--green-deep); line-height: 1.8;">
+                    总日记数：<strong id="totalCount">0</strong> 篇<br>
+                    每页显示：5 篇<br>
+                    共 <strong id="totalPages">0</strong> 页
+                </p>
+            </div>
         </aside>
     </main>
 
@@ -176,5 +135,94 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script>
+        const ITEMS_PER_PAGE = 5;
+        let allDiaries = [];
+        let currentPage = 1;
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                const res = await fetch('data/diary.json');
+                allDiaries = await res.json();
+
+                // 按日期倒序排列
+                allDiaries.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                // 渲染第一页
+                renderPage(1);
+
+            } catch (e) {
+                document.getElementById('diaryContainer').innerHTML =
+                    '<p style="text-align: center; color: #999; padding: 2rem;">日记加载失败，请刷新重试～</p>';
+                console.error('加载日记失败:', e);
+            }
+        });
+
+        function renderPage(page) {
+            const totalPages = Math.ceil(allDiaries.length / ITEMS_PER_PAGE);
+            currentPage = Math.max(1, Math.min(page, totalPages || 1));
+
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const pageDiaries = allDiaries.slice(start, start + ITEMS_PER_PAGE);
+
+            // 渲染日记卡片
+            const container = document.getElementById('diaryContainer');
+            container.innerHTML = pageDiaries.map(diary => `
+                <article class="post-card">
+                    <div class="post-thumbnail">${diary.thumbnail}</div>
+                    <div class="post-content">
+                        <span class="post-date">${diary.date} ${diary.weather}</span>
+                        <h2 class="post-title">${diary.title}</h2>
+                        <p class="post-excerpt">${diary.content}</p>
+                    </div>
+                </article>
+            `).join('');
+
+            // 更新统计
+            document.getElementById('totalCount').textContent = allDiaries.length;
+            document.getElementById('totalPages').textContent = totalPages;
+
+            // 渲染分页
+            renderPagination(totalPages);
+
+            // 滚动到顶部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderPagination(totalPages) {
+            if (totalPages <= 1) {
+                document.getElementById('pagination').innerHTML = '';
+                return;
+            }
+
+            let html = '';
+
+            // 上一页
+            html += `<a href="#" class="page-link ${currentPage === 1 ? 'disabled' : ''}" data-page="${currentPage - 1}">« 上一页</a>`;
+
+            // 页码
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 1) {
+                    html += `<a href="#" class="page-link ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</a>`;
+                } else if (Math.abs(i - currentPage) === 2) {
+                    html += `<span class="page-dots">...</span>`;
+                }
+            }
+
+            // 下一页
+            html += `<a href="#" class="page-link ${currentPage === totalPages ? 'disabled' : ''}" data-page="${currentPage + 1}">下一页 »</a>`;
+
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = html;
+
+            // 绑定点击事件
+            pagination.querySelectorAll('.page-link:not(.disabled)').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    renderPage(parseInt(el.dataset.page));
+                });
+            });
+        }
+    </script>
 </body>
 </html>

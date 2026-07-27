@@ -513,6 +513,12 @@ body {
     border-color: var(--green-main);
 }
 
+.page-link.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 .page-dots {
     padding: 0.5rem;
     color: var(--green-light);
