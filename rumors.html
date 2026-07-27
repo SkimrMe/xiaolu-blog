@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言墙 - 小绿的博客</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💬</text></svg>">
+    <style>
+        .rumor-wall {
+            column-count: 2;
+            column-gap: 1.5rem;
+        }
+        .rumor-card {
+            display: inline-block;
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 3px 10px var(--shadow);
+            border: 1px solid #C8E6C9;
+            break-inside: avoid;
+            position: relative;
+            transition: all 0.3s;
+        }
+        .rumor-card:nth-child(odd) {
+            transform: rotate(-0.5deg);
+            border-left: 3px solid var(--green-main);
+        }
+        .rumor-card:nth-child(even) {
+            transform: rotate(0.5deg);
+            border-right: 3px solid var(--green-light);
+        }
+        .rumor-card:hover {
+            transform: rotate(0) scale(1.02);
+            box-shadow: 0 8px 25px var(--shadow);
+            z-index: 10;
+        }
+        .rumor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px dashed var(--green-light);
+        }
+        .rumor-nick {
+            font-weight: bold;
+            color: var(--green-dark);
+            font-size: 0.95rem;
+        }
+        .rumor-date {
+            font-size: 0.8rem;
+            color: #888;
+        }
+        .rumor-content {
+            color: var(--green-deep);
+            line-height: 1.7;
+            font-size: 0.95rem;
+            word-wrap: break-word;
+        }
+        .rumor-tags {
+            margin-top: 0.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+        .rumor-tag {
+            background: var(--cream);
+            color: var(--green-main);
+            padding: 0.15rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            border: 1px solid var(--green-light);
+        }
+        .rumor-intro {
+            background: linear-gradient(135deg, var(--cream), white);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px dashed var(--green-light);
+            text-align: center;
+        }
+        .rumor-intro h2 {
+            color: var(--green-dark);
+            margin-bottom: 0.8rem;
+        }
+        .rumor-intro p {
+            color: var(--green-deep);
+            line-height: 1.7;
+        }
+        .submit-box {
+            background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border: 2px solid var(--green-main);
+        }
+        .submit-box h3 {
+            color: var(--green-dark);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .submit-steps {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: var(--green-deep);
+        }
+        .submit-steps ol {
+            padding-left: 1.5rem;
+        }
+        .submit-steps li {
+            margin-bottom: 0.5rem;
+        }
+        .code-template {
+            background: #1a1a2e;
+            color: #a7f3d0;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+        .submit-rules {
+            background: #FFF3E0;
+            border-radius: 10px;
+            padding: 1rem;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            border-left: 4px solid #FF9800;
+            color: #E65100;
+        }
+        .submit-rules h4 {
+            margin-bottom: 0.5rem;
+        }
+        .local-form {
+            background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 2px solid var(--green-light);
+        }
+        .local-form h3 {
+            color: var(--green-dark);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--green-deep);
+            font-weight: 500;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--green-light);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            background: white;
+            color: var(--green-dark);
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .local-submit-btn {
+            background: linear-gradient(135deg, var(--green-light), var(--green-main));
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-family: inherit;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .local-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+        .local-note {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-top: 0.8rem;
+            line-height: 1.6;
+        }
+        .local-messages {
+            margin: 1.5rem 0;
+        }
+        .local-message-item {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            border-left: 3px solid var(--green-light);
+            font-size: 0.9rem;
+        }
+        .local-message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+        }
+        .local-message-author {
+            font-weight: bold;
+            color: var(--green-dark);
+        }
+        .local-message-date {
+            color: #81C784;
+        }
+        @media (max-width: 768px) {
+            .rumor-wall {
+                column-count: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="leaves" id="leaves"></div>
+
+    <header class="header">
+        <div class="logo-container">
+            <h1 class="logo-text">💬 流 言 墙 💬</h1>
+            <p class="logo-sub">～ 路过的人留下只言片语 ～</p>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="articles.html">文章</a></li>                <li><a href="diary.html">日记</a></li>
+                <li><a href="gallery.html">相册</a></li>
+                <li><a href="video.html">视频</a></li>                <li><a href="game.html">🎮 小游戏</a></li>
+                <li><a href="memories.html">回忆</a></li>
+                <li><a href="rumors.html" class="active">💬 留言墙</a></li>
+                <li><a href="about.html">关于</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="content">
+            <div class="rumor-intro">
+                <h2>🌿 过 路 留 言 墙</h2>
+                <p>不管是日常吐槽、心情感悟、还是想说的悄悄话，都可以在这里留下！<br>支持本地快速留言，也可以提交PR永久公开显示哦～ <span class="heart">💚</span></p>
+            </div>
+
+            <div class="local-form">
+                <h3>✍️ 快速留言（本地保存）</h3>
+                <div class="form-group">
+                    <label for="localName">你的昵称</label>
+                    <input type="text" id="localName" placeholder="请输入昵称（可选，默认匿名）">
+                </div>
+                <div class="form-group">
+                    <label for="localMessage">留言内容</label>
+                    <textarea id="localMessage" placeholder="想留下什么话呢～" required></textarea>
+                </div>
+                <button class="local-submit-btn" id="localSubmitBtn">💚 提交本地留言</button>
+                <div class="local-note">
+                    ℹ️ 本地留言保存在浏览器中，仅在当前设备可见；如需公开展示永久保存，请往下看PR提交方式～
+                </div>
+
+                <div class="local-messages" id="localMessagesContainer">
+                    <!-- 本地留言由JS加载 -->
+                </div>
+            </div>
+
+            <h3 style="color: var(--green-dark); margin: 2rem 0 1rem 0;">🌟 公开永久留言</h3>
+            <div class="rumor-wall" id="rumorsContainer">
+                <!-- 公开留言条目由JS加载 -->
+            </div>
+
+            <div class="submit-box">
+                <h3>📝 如何提交你的留言？</h3>
+
+                <div class="submit-steps">
+                    <ol>
+                        <li>Fork 本项目仓库：<a href="https://github.com/sfghgy249/xiaolu-blog" target="_blank" style="color: var(--green-main);">github.com/sfghgy249/xiaolu-blog</a></li>
+                        <li>在 <code>data/rumors.json</code> 文件末尾按格式添加你的留言条目</li>
+                        <li>提交 Pull Request，等待管理员审核合并</li>
+                        <li>合并后GitHub Pages自动部署，刷新页面就能看到你的留言啦！</li>
+                    </ol>
+                </div>
+
+                <p style="text-align: center; margin-bottom: 0.5rem; color: var(--green-dark); font-weight: 500;">📋 提交格式模板：</p>
+                <div class="code-template">
+{<br>
+&nbsp;&nbsp;"nickname": "你的昵称（可选，留空填匿名）",<br>
+&nbsp;&nbsp;"date": "2026-07-26",<br>
+&nbsp;&nbsp;"content": "你想说的话，简短一点就好～",<br>
+&nbsp;&nbsp;"tags": ["标签1", "标签2"]<br>
+}
+                </div>
+
+                <div class="submit-rules">
+                    <h4>⚠️ 审核规则</h4>
+                    <ul style="padding-left: 1.2rem;">
+                        <li>禁止提交违法违规、色情暴力、政治敏感内容</li>
+                        <li>禁止泄露他人隐私信息（真实姓名、QQ号、手机号、地址等）</li>
+                        <li>禁止人身攻击、引战、恶意言论</li>
+                        <li>广告、推广内容不予通过</li>
+                        <li>管理员保留删除不当内容的权利</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <aside class="sidebar">
+            <div class="sidebar-widget">
+                <h3 class="widget-title">💬 关 于 流 言</h3>
+                <p style="text-align: center; font-size: 0.9rem; color: var(--green-deep); line-height: 1.8;">
+                    碎碎念 · 心情墙 · 吐槽板<br>
+                    通过 GitHub PR 提交<br>
+                    人工审核后展示<br>
+                    想说什么都可以 💚
+                </p>
+            </div>
+
+            <div class="sidebar-widget">
+                <h3 class="widget-title">📊 统 计</h3>
+                <p style="text-align: center; font-size: 0.9rem; color: var(--green-deep); line-height: 1.8;">
+                    留言总数：<strong id="rumorCount">0</strong><br>
+                    最新更新：<span id="latestDate"></span><br>
+                    数据来源：GitHub PR
+                </p>
+            </div>
+
+            <div class="sidebar-widget">
+                <div class="guardian-box">
+                    <div class="icon">🔗</div>
+                    <p>
+                        <strong>快速提交</strong><br>
+                        <a href="https://github.com/sfghgy249/xiaolu-blog/fork" target="_blank" style="color: var(--green-main);">点我 Fork 仓库 →</a><br>
+                        提交PR即可添加留言
+                    </p>
+                </div>
+            </div>
+
+            <div class="sidebar-widget">
+                <div class="guardian-box">
+                    <div class="icon">💡</div>
+                    <p>
+                        <strong>小贴士</strong><br>
+                        匿名也可以哦<br>
+                        把 nickname 设为"匿名"就行<br>
+                        放心大胆说！
+                    </p>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>🌱 小绿的博客</h4>
+                <p>
+                    绿色上网 · 花季护航<br>
+                    守护每一份纯真与美好
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>🔗 导航</h4>
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="memories.html">回忆</a></li>
+                    <li><a href="rumors.html">💬 留言墙</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>💚 友情提示</h4>
+                <p>
+                    留下你的只言片语<br>
+                    <a href="https://github.com/sfghgy249/xiaolu-blog/fork" target="_blank" style="color: var(--green-light);">提交留言 PR →</a>
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2009 - 2026 小绿（格林达姆）· 绿坝-花季护航</p>
+            <p style="margin-top: 0.5rem; opacity: 0.6;">Made with 💚 for healthy internet</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            const container = document.getElementById('rumorsContainer');
+
+            try {
+                const res = await fetch('data/rumors.json');
+                const rumors = await res.json();
+
+                // 按日期倒序排列
+                rumors.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                let html = '';
+                rumors.forEach(rumor => {
+                    const dateStr = rumor.date.replace(/-/g, '年').replace(/年(\d+)$/, '月$1日');
+                    const tagsHtml = rumor.tags && rumor.tags.length
+                        ? rumor.tags.map(t => `<span class="rumor-tag">#${t}</span>`).join('')
+                        : '';
+
+                    html += `
+                        <div class="rumor-card">
+                            <div class="rumor-header">
+                                <span class="rumor-nick">🌿 ${rumor.nickname || '匿名'}</span>
+                                <span class="rumor-date">📅 ${dateStr}</span>
+                            </div>
+                            <div class="rumor-content">${rumor.content}</div>
+                            <div class="rumor-tags">${tagsHtml}</div>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML = html;
+                document.getElementById('rumorCount').textContent = rumors.length;
+                document.getElementById('latestDate').textContent = rumors[0]?.date || '-';
+
+            } catch (e) {
+                container.innerHTML = '<p style="text-align: center; color: #999;">公开留言加载失败，请刷新重试～</p>';
+                console.error('加载公开留言失败:', e);
+            }
+
+            // 本地留言功能
+            const LOCAL_STORAGE_KEY = 'xiaolu_local_messages';
+            const localContainer = document.getElementById('localMessagesContainer');
+            const localSubmitBtn = document.getElementById('localSubmitBtn');
+            const localNameInput = document.getElementById('localName');
+            const localMessageInput = document.getElementById('localMessage');
+
+            function escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            function loadLocalMessages() {
+                const messages = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
+                if (messages.length === 0) {
+                    localContainer.innerHTML = '<p style="text-align: center; color: #888; font-size: 0.9rem;">还没有本地留言，快来抢沙发吧～</p>';
+                    return;
+                }
+                let html = '<h4 style="color: var(--green-dark); margin: 1rem 0 0.8rem 0; font-size: 0.95rem;">📬 本地留言（仅本设备可见）</h4>';
+                [...messages].reverse().forEach(msg => {
+                    html += `
+                        <div class="local-message-item">
+                            <div class="local-message-header">
+                                <span class="local-message-author">🌱 ${escapeHtml(msg.name)}</span>
+                                <span class="local-message-date">${msg.date}</span>
+                            </div>
+                            <div>${escapeHtml(msg.message)}</div>
+                        </div>
+                    `;
+                });
+                localContainer.innerHTML = html;
+            }
+
+            localSubmitBtn.addEventListener('click', function() {
+                const name = localNameInput.value.trim() || '匿名';
+                const message = localMessageInput.value.trim();
+                if (!message) {
+                    alert('请输入留言内容哦～');
+                    return;
+                }
+
+                const messages = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
+                messages.push({
+                    name: name,
+                    message: message,
+                    date: new Date().toISOString().split('T')[0]
+                });
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(messages));
+
+                localNameInput.value = '';
+                localMessageInput.value = '';
+                loadLocalMessages();
+                alert('本地留言提交成功！💚');
+            });
+
+            loadLocalMessages();
+        });
+    </script>
+</body>
+</html>

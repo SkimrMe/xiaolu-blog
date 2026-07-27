@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章列表 - 小绿的博客</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+</head>
+<body>
+    <div class="leaves" id="leaves"></div>
+
+    <header class="header">
+        <div class="logo-container">
+            <h1 class="logo-text">🌱 文 章 列 表 🌱</h1>
+            <p class="logo-sub">～ 小绿的博客文章合集 ～</p>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="articles.html" class="active">文章</a></li>
+                <li><a href="diary.html">日记</a></li>
+                <li><a href="gallery.html">相册</a></li>
+                <li><a href="video.html">视频</a></li>                <li><a href="game.html">🎮 小游戏</a></li>
+                <li><a href="memories.html">回忆</a></li>
+                <li><a href="rumors.html">💬 留言墙</a></li>
+                <li><a href="about.html">关于</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="content">
+            <div id="articlesContainer">
+                <!-- 文章由JS动态加载 -->
+            </div>
+
+            <div class="pagination" id="pagination">
+                <!-- 分页由JS动态生成 -->
+            </div>
+        </div>
+
+        <aside class="sidebar">
+            <div class="sidebar-widget">
+                <h3 class="widget-title">🌱 关 于 我 🌱</h3>
+                <div class="profile-avatar">
+                    <img src="img/xiaolu_avatar.jpg" alt="小绿头像" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                </div>
+                <p class="profile-name">小绿（格林达姆）</p>
+                <p class="profile-bio">
+                    绿坝-花季护航形象<br>
+                    生日：2009年6月11日<br>
+                    喜欢：绿色、大自然、小朋友<br>
+                    不喜欢：不良信息 💚
+                </p>
+            </div>
+
+            <div class="sidebar-widget">
+                <h3 class="widget-title">📊 文 章 统 计</h3>
+                <p style="text-align: center; font-size: 0.9rem; color: var(--green-deep); line-height: 1.8;">
+                    总文章数：<strong id="totalCount">0</strong> 篇<br>
+                    每页显示：6 篇<br>
+                    共 <strong id="totalPages">0</strong> 页
+                </p>
+            </div>
+
+            <div class="sidebar-widget">
+                <h3 class="widget-title">🏷️ 文 章 分 类</h3>
+                <div class="tag-cloud" id="tagCloud">
+                    <!-- 标签由JS动态生成 -->
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>🌱 小绿的博客</h4>
+                <p>
+                    绿色上网 · 花季护航<br>
+                    守护每一份纯真与美好
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>🔗 导航</h4>
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="articles.html">文章</a></li>
+                    <li><a href="video.html">视频</a></li>                    <li><a href="about.html">关于</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>💚 游戏</h4>
+                <p>
+                    来玩小绿吃豆人吧！<br>
+                    <a href="game.html" style="color: var(--green-light);">点击进入游戏 →</a>
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2009 - 2026 小绿（格林达姆）· 绿坝-花季护航</p>
+            <p style="margin-top: 0.5rem; opacity: 0.6;">Made with 💚 for healthy internet</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        const ITEMS_PER_PAGE = 6;
+        let allArticles = [];
+        let currentPage = 1;
+        let currentTag = null;
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                const res = await fetch('data/articles.json');
+                allArticles = await res.json();
+
+                // 按日期倒序排列
+                allArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                // 生成标签云
+                renderTagCloud();
+
+                // 渲染第一页
+                renderPage(1);
+
+            } catch (e) {
+                document.getElementById('articlesContainer').innerHTML =
+                    '<p style="text-align: center; color: #999; padding: 2rem;">文章加载失败，请刷新重试～</p>';
+                console.error('加载文章失败:', e);
+            }
+        });
+
+        function renderTagCloud() {
+            const tagCount = {};
+            allArticles.forEach(a => {
+                a.tags.forEach(t => {
+                    tagCount[t] = (tagCount[t] || 0) + 1;
+                });
+            });
+
+            const tagCloud = document.getElementById('tagCloud');
+            tagCloud.innerHTML = '<a href="#" class="tag-item" data-tag="">全部</a>' +
+                Object.keys(tagCount).map(tag =>
+                    `<a href="#" class="tag-item" data-tag="${tag}">${tag} (${tagCount[tag]})</a>`
+                ).join('');
+
+            // 标签点击事件
+            tagCloud.querySelectorAll('.tag-item').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentTag = el.dataset.tag || null;
+                    currentPage = 1;
+                    renderPage(1);
+                    // 高亮当前标签
+                    tagCloud.querySelectorAll('.tag-item').forEach(t => t.style.background = '');
+                    el.style.background = 'var(--green-main)';
+                    el.style.color = 'white';
+                });
+            });
+        }
+
+        function getFilteredArticles() {
+            if (!currentTag) return allArticles;
+            return allArticles.filter(a => a.tags.includes(currentTag));
+        }
+
+        function renderPage(page) {
+            const filtered = getFilteredArticles();
+            const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+            currentPage = Math.max(1, Math.min(page, totalPages || 1));
+
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const pageArticles = filtered.slice(start, start + ITEMS_PER_PAGE);
+
+            // 渲染文章卡片
+            const container = document.getElementById('articlesContainer');
+            container.innerHTML = pageArticles.map(article => `
+                <article class="post-card">
+                    <div class="post-thumbnail">${article.thumbnail}</div>
+                    <div class="post-content">
+                        <span class="post-date">${article.date}</span>
+                        <h2 class="post-title">${article.title}</h2>
+                        <p class="post-excerpt">${article.excerpt}</p>
+                        <div class="post-tags">
+                            ${article.tags.map(t => `<span class="tag">#${t}</span>`).join('')}
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+
+            // 更新统计
+            document.getElementById('totalCount').textContent = allArticles.length;
+            document.getElementById('totalPages').textContent = totalPages;
+
+            // 渲染分页
+            renderPagination(totalPages);
+
+            // 滚动到顶部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderPagination(totalPages) {
+            if (totalPages <= 1) {
+                document.getElementById('pagination').innerHTML = '';
+                return;
+            }
+
+            let html = '';
+
+            // 上一页
+            html += `<a href="#" class="page-link ${currentPage === 1 ? 'disabled' : ''}" data-page="${currentPage - 1}">« 上一页</a>`;
+
+            // 页码
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 1) {
+                    html += `<a href="#" class="page-link ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</a>`;
+                } else if (Math.abs(i - currentPage) === 2) {
+                    html += `<span class="page-dots">...</span>`;
+                }
+            }
+
+            // 下一页
+            html += `<a href="#" class="page-link ${currentPage === totalPages ? 'disabled' : ''}" data-page="${currentPage + 1}">下一页 »</a>`;
+
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = html;
+
+            // 绑定点击事件
+            pagination.querySelectorAll('.page-link:not(.disabled)').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    renderPage(parseInt(el.dataset.page));
+                });
+            });
+        }
+    </script>
+</body>
+</html>

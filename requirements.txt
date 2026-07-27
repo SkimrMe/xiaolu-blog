@@ -1,0 +1,16 @@
+# xiaolu-blog Python 依赖
+# 安装方式：
+#   pip install -r requirements.txt
+#   uv pip install -r requirements.txt
+#
+# Python 版本要求：>= 3.8
+# 注意：除 requests 外，其他脚本仅使用 Python 标准库
+
+# HTTP 请求库 - 用于 B站视频抓取脚本
+requests==2.32.3
+
+# requests 依赖项（版本锁定）
+certifi==2026.7.22
+charset-normalizer==3.4.9
+idna==3.18
+urllib3==2.7.0

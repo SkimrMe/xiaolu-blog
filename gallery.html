@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小绿相册 - 小绿的博客</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+    <style>
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 3px solid var(--green-light);
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: all 0.3s;
+            background: white;
+        }
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--green-main);
+            box-shadow: 0 8px 25px var(--shadow);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        .gallery-info {
+            padding: 0.8rem;
+            font-size: 0.85rem;
+            color: var(--green-deep);
+            text-align: center;
+        }
+        .refresh-gallery {
+            text-align: center;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="leaves" id="leaves"></div>
+
+    <header class="header">
+        <div class="logo-container">
+            <h1 class="logo-text">🌱 小 绿 相 册 🌱</h1>
+            <p class="logo-sub">～ 绿坝娘图片收藏馆 ～</p>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="articles.html">文章</a></li>                <li><a href="diary.html">日记</a></li>
+                <li><a href="gallery.html" class="active">相册</a></li>
+                <li><a href="video.html">视频</a></li>                <li><a href="game.html">🎮 小游戏</a></li>
+                <li><a href="memories.html">回忆</a></li>
+                <li><a href="rumors.html">💬 留言墙</a></li>
+                <li><a href="about.html">关于</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="content">
+            <div class="welcome-banner">
+                <div class="welcome-text" style="flex: 1;">
+                    <h2>小绿图片画廊</h2>
+                    <p>图片全部来自 <a href="https://greendam.icu/" target="_blank" rel="noopener" style="color: var(--green-main);">greendam.icu</a>，收集了各种绿坝娘同人图，点击刷新按钮可以随机加载更多图片～ <span class="heart">💚</span></p>
+                </div>
+            </div>
+
+            <div class="refresh-gallery">
+                <button id="refreshGalleryBtn" class="refresh-btn">🔄 刷新更多图片</button>
+            </div>
+
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- 图片由JS动态加载 -->
+                <div style="text-align: center; grid-column: 1/-1; padding: 2rem; color: var(--green-deep);">
+                    正在加载图片...
+                </div>
+            </div>
+        </div>
+
+        <aside class="sidebar">
+            <div class="sidebar-widget">
+                <h3 class="widget-title">🖼️ 图 片 来 源</h3>
+                <p style="text-align: center; font-size: 0.9rem; color: var(--green-deep); line-height: 1.8;">
+                    所有图片收集自<br>
+                    <a href="https://greendam.icu/" target="_blank" rel="noopener" style="color: var(--green-main); font-weight: bold;">greendam.icu</a><br><br>
+                    包含历年来绿坝娘同人创作<br>
+                    感谢所有画师！💚
+                </p>
+            </div>
+
+            <div class="sidebar-widget">
+                <div class="guardian-box">
+                    <div class="icon">📸</div>
+                    <p>
+                        <strong>小绿图鉴</strong><br>
+                        每张图片都是回忆<br>
+                        一起守护这些美好
+                    </p>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>🌱 小绿的博客</h4>
+                <p>
+                    绿色上网 · 花季护航<br>
+                    守护每一份纯真与美好
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>🔗 导航</h4>
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="articles.html">文章</a></li>
+                    <li><a href="video.html">视频</a></li>                    <li><a href="about.html">关于</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2009 - 2026 小绿（格林达姆）· 绿坝-花季护航</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        // 相册专用逻辑
+        document.addEventListener('DOMContentLoaded', async function() {
+            const IMAGES_JS_URL = 'https://greendam.icu/js/images.js';
+            const IMAGE_FOLDER = 'https://greendam.icu/images/';
+            const galleryGrid = document.getElementById('galleryGrid');
+            const refreshBtn = document.getElementById('refreshGalleryBtn');
+            let allImages = [];
+
+            function parseFileName(filename) {
+                const name = filename.replace(/\.[^.]+$/, '');
+                const parts = name.split('-');
+                let author = '', dateStr = '';
+                if (parts.length > 0) author = parts[0];
+                const second = parts[1];
+                if (/^\d{4,8}$/.test(second)) dateStr = second;
+                let dateFormatted = '';
+                if (dateStr) {
+                    const d = dateStr.replace(/[^\d]/g, '');
+                    if (d.length >= 4) dateFormatted = d.slice(0,4) + '年';
+                }
+                return { author, date: dateFormatted };
+            }
+
+            function renderGallery(count = 12) {
+                galleryGrid.innerHTML = '';
+                // 随机选取count张图片
+                const shuffled = [...allImages].sort(() => 0.5 - Math.random());
+                const selected = shuffled.slice(0, count);
+                selected.forEach(img => {
+                    const { author, date } = parseFileName(img);
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item';
+                    item.innerHTML = `
+                        <img src="${IMAGE_FOLDER}${encodeURIComponent(img)}" alt="${img}" loading="lazy">
+                        <div class="gallery-info">
+                            ${author} ${date ? `· ${date}` : ''}
+                        </div>
+                    `;
+                    galleryGrid.appendChild(item);
+                });
+            }
+
+            try {
+                const response = await fetch(IMAGES_JS_URL);
+                const text = await response.text();
+                const match = text.match(/const IMAGES = \[([\s\S]*?)\];/);
+                if (match) {
+                    const arrayContent = match[1];
+                    allImages = arrayContent.match(/'([^']+)'/g)?.map(s => s.slice(1, -1)) || [];
+                    renderGallery();
+                }
+            } catch (e) {
+                galleryGrid.innerHTML = '<div style="text-align: center; grid-column: 1/-1; padding: 2rem; color: #ff6b9d;">图片加载失败，请检查网络连接</div>';
+            }
+
+            refreshBtn.addEventListener('click', () => renderGallery());
+        });
+    </script>
+</body>
+</html>

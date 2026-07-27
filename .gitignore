@@ -1,0 +1,13 @@
+node_modules/
+.env
+.DS_Store
+*.log
+
+# Daily memory auto-summary runtime files
+data/daily_log/*.jsonl
+data/daily_log/*.jsonl.processed
+data/daily_log/cron.log
+
+# Local secrets (never commit)
+scripts/.gh_token
+__pycache__/
