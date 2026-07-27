@@ -119,6 +119,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function getRandomImage() {
+        // 如果页面上没有随机图片元素（非首页），直接返回
+        if (!randomImageEl) return;
         let newIndex;
         do {
             newIndex = Math.floor(Math.random() * xiaoluImages.length);
