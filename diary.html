@@ -110,9 +110,34 @@
             <div class="sidebar-widget">
                 <h3 class="widget-title">📅 日 历</h3>
                 <div style="text-align: center; padding: 1rem; color: var(--green-deep);">
-                    <p style="font-size: 1.2rem; font-weight: bold;">2026年7月</p>
-                    <p style="margin-top: 0.5rem; font-size: 2rem; color: var(--green-main);">26</p>
-                    <p>星期日</p>
+                    <p style="font-size: 1.2rem; font-weight: bold;" id="Date">
+                        <script>
+                            // 获取当前日期
+                            const today = new Date();
+                            const Year = today.getFullYear();
+                            const Month = today.getMonth() + 1;
+                            const Day = today.getDate();
+                            const Week = weekTOchinese(today.getDay());
+
+                            function weekTOchinese(weekTOchinese) {
+                                switch (weekTOchinese) {
+                                    case 0: return '星期日';
+                                    case 1: return '星期一';
+                                    case 2: return '星期二';
+                                    case 3: return '星期三';
+                                    case 4: return '星期四';
+                                    case 5: return '星期五';
+                                    case 6: return '星期六';
+                                }
+                            }
+
+                            document.getElementById("Date").innerHTML = `
+                                ${Year}年${Month}月
+                                <p style="margin-top: 0.5rem; font-size: 2rem; color: var(--green-main);">${Day}</p>
+                                <p>${Week}</p>
+                            `;
+                        </script>
+                    </p>
                 </div>
             </div>
 
