@@ -101,7 +101,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 预渲染静态地图（墙和豆子）到离屏canvas - 只在初始化和吃豆子时调用
     function renderStaticMap() {
-        staticCtx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+        // 先填充整个静态画布的背景色（地板颜色），避免透明像素导致重影
+        staticCtx.fillStyle = '#F5F5DC';
+        staticCtx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
         // 绘制墙 - 一次性渲染
         staticCtx.fillStyle = '#006400';
@@ -176,10 +178,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 score += 10;
                 totalPellets--;
 
-                // 只重绘当前格子而不是整个地图
+                // 只重绘当前格子而不是整个地图 - 用背景色填充而不是clearRect（避免透明像素导致重影）
                 const px = player.x * TILE_SIZE;
                 const py = player.y * TILE_SIZE;
-                staticCtx.clearRect(px, py, TILE_SIZE, TILE_SIZE);
+                staticCtx.fillStyle = '#F5F5DC';
+                staticCtx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
 
                 if (totalPellets === 0) {
                     endGame(true);
@@ -264,6 +267,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 仅绘制动态元素，从静态缓存复制背景
     function draw() {
+        // 先用背景色清空整个画布（修复重影bug：透明像素的drawImage不会清除上一帧内容）
+        ctx.fillStyle = '#F5F5DC';
+        ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
         // 复制静态地图（墙和豆子）- 比逐帧绘制快得多
         ctx.drawImage(staticCanvas, 0, 0);
 

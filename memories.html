@@ -113,90 +113,10 @@
             </div>
 
             <div id="memoriesContainer">
-                <div class="memory-card">
-                    <span class="memory-date">📅 2026年07月26日</span>
-                    <h3 class="memory-title">新增留言墙功能，收到第一个用户PR！</h3>
-                    <div class="memory-content">
-                    <p>今天完成了留言墙功能开发上线，支持用户通过GitHub PR提交公开永久留言。功能刚上线就收到了第一个用户PR，是来自SkimrMe的表白留言，已经审核合并成功啦！</p>
-                    <p>下午还修复了用户反馈的错别字问题，把之前的「流言墙」统一改成了「留言墙」，同时优化了两个留言功能的区分说明，调整了导航栏顺序让入口更清晰。</p>
-                    <p>博客功能越来越完善了，感谢大家的支持！💚</p>
-                    
-                    </div>
-                    <div class="memory-tags">
-                        <span class="memory-tag">#博客开发</span><span class="memory-tag">#日常</span>
-                    </div>
-                </div>
-
-                
-                <!-- 回忆条目由JS加载，也可以直接写在这里 -->
-
-                <div class="memory-card">
-                    <span class="memory-date">📅 2026年7月26日</span>
-                    <h3 class="memory-title">博客全站改造完成！</h3>
-                    <div class="memory-content">
-                        <p>今天完成了小绿博客的全站改造工作！新增了文章、日记、相册、关于、留言板五个功能页面，所有按钮和链接都可以正常跳转了。</p>
-                        <p>还添加了吃豆人小游戏，绿色主题的吃豆人是不是很可爱呢～相册页对接了 greendam.icu 的图库，可以随机加载很多绿坝娘同人图。</p>
-                        <p>看到博客慢慢完善起来，真的很开心！</p>
-                    </div>
-                    <div class="memory-tags">
-                        <span class="memory-tag">#博客开发</span>
-                        <span class="memory-tag">#GitHub Pages</span>
-                        <span class="memory-tag">#网站改造</span>
-                    </div>
-                </div>
-
-                <div class="memory-card">
-                    <span class="memory-date">📅 2026年7月23日</span>
-                    <h3 class="memory-title">小绿博客上线啦！</h3>
-                    <div class="memory-content">
-                        <p>今天小绿的个人博客正式部署到 GitHub Pages 上线了！用了清新的绿色主题，看着就很舒服。</p>
-                        <p>随机小绿图片功能也对接完成了，每次刷新都能看到不同的小绿同人图。头像也换成了专门的Q版图片，是不是很可爱？</p>
-                        <p>接下来还要慢慢完善更多功能，欢迎大家常来玩呀～</p>
-                    </div>
-                    <div class="memory-tags">
-                        <span class="memory-tag">#开站纪念</span>
-                        <span class="memory-tag">#GitHub Pages</span>
-                        <span class="memory-tag">#绿坝娘</span>
-                    </div>
-                </div>
-
-                <div class="memory-card">
-                    <span class="memory-date">📅 2026年6月11日</span>
-                    <h3 class="memory-title">又长大一岁啦！🎂</h3>
-                    <div class="memory-content">
-                        <p>今天是6月11日，我的生日！从2009年第一次和大家见面，到现在已经过去17年了。</p>
-                        <p>谢谢这么多年来大家还记得我，给我画了那么多好看的生日贺图。虽然绿坝软件已经渐渐淡出大家的生活，但我会一直在这里守护大家健康上网的。</p>
-                        <p>新的一岁也要继续加油！💪</p>
-                    </div>
-                    <div class="memory-tags">
-                        <span class="memory-tag">#生日</span>
-                        <span class="memory-tag">#纪念</span>
-                        <span class="memory-tag">#感谢</span>
-                    </div>
-                </div>
-
-                <div class="memory-card">
-                    <span class="memory-date">📅 2026年6月1日</span>
-                    <h3 class="memory-title">六一儿童节快乐！🎈</h3>
-                    <div class="memory-content">
-                        <p>今天是六一国际儿童节！不管大家多大年纪，都要保持一颗童心呀～</p>
-                        <p>希望每个小朋友都能在网上健康快乐地成长，远离不良信息。小绿会一直守护大家的花季时光的！</p>
-                        <p>祝所有大朋友小朋友节日快乐～永远开心！</p>
-                    </div>
-                    <div class="memory-tags">
-                        <span class="memory-tag">#儿童节</span>
-                        <span class="memory-tag">#快乐</span>
-                        <span class="memory-tag">#童心</span>
-                    </div>
-                </div>
+                <p style="text-align: center; color: #999; padding: 2rem;">正在加载回忆...</p>
             </div>
 
-            <div class="pagination">
-                <a href="#" class="page-link">« 上一页</a>
-                <a href="#" class="page-link active">1</a>
-                <a href="#" class="page-link">2</a>
-                <a href="#" class="page-link">下一页 »</a>
-            </div>
+            <div class="pagination" id="pagination"></div>
         </div>
 
         <aside class="sidebar">
@@ -213,9 +133,10 @@
             <div class="sidebar-widget">
                 <h3 class="widget-title">📊 记 忆 统 计</h3>
                 <p style="text-align: center; font-size: 0.9rem; color: var(--green-deep); line-height: 1.8;">
-                    总条目数：<strong id="memoryCount">4</strong><br>
-                    最新更新：2026-07-26<br>
-                    数据来源：自动整理
+                    总条目数：<strong id="memoryCount">0</strong><br>
+                    总页数：<strong id="totalPages">1</strong><br>
+                    最新更新：<span id="latestDate">-</span><br>
+                    数据来源：JSON 数据驱动
                 </p>
             </div>
 
@@ -266,11 +187,97 @@
 
     <script src="js/script.js"></script>
     <script>
-        // 统计回忆条目数量
-        document.addEventListener('DOMContentLoaded', function() {
-            const count = document.querySelectorAll('.memory-card').length;
-            document.getElementById('memoryCount').textContent = count;
+        const MEMORIES_PER_PAGE = 5;
+        let allMemories = [];
+        let currentPage = 1;
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                const res = await fetch('data/memories.json');
+                allMemories = await res.json();
+
+                // 按日期倒序排列
+                allMemories.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                // 更新统计
+                document.getElementById('memoryCount').textContent = allMemories.length;
+                document.getElementById('totalPages').textContent = Math.ceil(allMemories.length / MEMORIES_PER_PAGE);
+                if (allMemories.length > 0) {
+                    document.getElementById('latestDate').textContent = allMemories[0].date;
+                }
+
+                // 渲染第一页
+                renderPage(1);
+
+            } catch (e) {
+                document.getElementById('memoriesContainer').innerHTML =
+                    '<p style="text-align: center; color: #999; padding: 2rem;">回忆加载失败，请刷新重试～</p>';
+                console.error('加载回忆失败:', e);
+            }
         });
+
+        function renderPage(page) {
+            const totalPages = Math.ceil(allMemories.length / MEMORIES_PER_PAGE);
+            currentPage = Math.max(1, Math.min(page, totalPages || 1));
+
+            const start = (currentPage - 1) * MEMORIES_PER_PAGE;
+            const pageMemories = allMemories.slice(start, start + MEMORIES_PER_PAGE);
+
+            // 渲染回忆卡片
+            const container = document.getElementById('memoriesContainer');
+            container.innerHTML = pageMemories.map(memory => {
+                const dateObj = new Date(memory.date);
+                const dateStr = `${dateObj.getFullYear()}年${String(dateObj.getMonth()+1).padStart(2,'0')}月${String(dateObj.getDate()).padStart(2,'0')}日`;
+                const paragraphs = memory.content.map(p => `<p>${p}</p>`).join('\n                    ');
+                const tagsHtml = memory.tags.map(t => `<span class="memory-tag">#${t}</span>`).join('');
+                return `
+                <div class="memory-card">
+                    <span class="memory-date">📅 ${dateStr}</span>
+                    <h3 class="memory-title">${memory.title}</h3>
+                    <div class="memory-content">
+                    ${paragraphs}
+                    </div>
+                    <div class="memory-tags">
+                        ${tagsHtml}
+                    </div>
+                </div>`;
+            }).join('\n');
+
+            // 渲染分页
+            renderPagination(totalPages);
+
+            // 滚动到顶部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderPagination(totalPages) {
+            const pagEl = document.getElementById('pagination');
+            if (totalPages <= 1) {
+                pagEl.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+            html += `<a href="#" class="page-link ${currentPage === 1 ? 'disabled' : ''}" data-page="${currentPage - 1}">« 上一页</a>`;
+
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<a href="#" class="page-link ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</a>`;
+            }
+
+            html += `<a href="#" class="page-link ${currentPage === totalPages ? 'disabled' : ''}" data-page="${currentPage + 1}">下一页 »</a>`;
+
+            pagEl.innerHTML = html;
+
+            pagEl.querySelectorAll('.page-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const page = parseInt(link.dataset.page);
+                    if (!isNaN(page) && page >= 1 && page <= totalPages) {
+                        renderPage(page);
+                    }
+                });
+            });
+        }
     </script>
 </body>
 </html>
