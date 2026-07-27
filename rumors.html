@@ -143,6 +143,89 @@
         .submit-rules h4 {
             margin-bottom: 0.5rem;
         }
+        .local-form {
+            background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 2px solid var(--green-light);
+        }
+        .local-form h3 {
+            color: var(--green-dark);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--green-deep);
+            font-weight: 500;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--green-light);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            background: white;
+            color: var(--green-dark);
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .local-submit-btn {
+            background: linear-gradient(135deg, var(--green-light), var(--green-main));
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-family: inherit;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .local-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+        .local-note {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-top: 0.8rem;
+            line-height: 1.6;
+        }
+        .local-messages {
+            margin: 1.5rem 0;
+        }
+        .local-message-item {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            border-left: 3px solid var(--green-light);
+            font-size: 0.9rem;
+        }
+        .local-message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+        }
+        .local-message-author {
+            font-weight: bold;
+            color: var(--green-dark);
+        }
+        .local-message-date {
+            color: #81C784;
+        }
         @media (max-width: 768px) {
             .rumor-wall {
                 column-count: 1;
@@ -170,7 +253,6 @@
                 <li><a href="game.html">🎮 小游戏</a></li>
                 <li><a href="memories.html">回忆</a></li>
                 <li><a href="rumors.html" class="active">💬 留言墙</a></li>
-                <li><a href="guestbook.html">📝 留言板</a></li>
                 <li><a href="about.html">关于</a></li>
             </ul>
         </div>
@@ -180,14 +262,32 @@
         <div class="content">
             <div class="rumor-intro">
                 <h2>🌿 过 路 留 言 墙</h2>
-                <p>这里是公开永久留言墙！不管是日常吐槽、心情感悟、还是想说的悄悄话，<br>都可以通过 PR 提交，审核通过后就会公开展示在这里哦～ <span class="heart">💚</span></p>
-                <p style="margin-top: 0.8rem; font-size: 0.9rem; opacity: 0.8;">
-                    💡 功能区分：本页内容为公开永久留言，所有人可见；如需临时本地留言请前往<a href="guestbook.html" style="color: var(--green-main);">留言板</a>
-                </p>
+                <p>不管是日常吐槽、心情感悟、还是想说的悄悄话，都可以在这里留下！<br>支持本地快速留言，也可以提交PR永久公开显示哦～ <span class="heart">💚</span></p>
             </div>
 
+            <div class="local-form">
+                <h3>✍️ 快速留言（本地保存）</h3>
+                <div class="form-group">
+                    <label for="localName">你的昵称</label>
+                    <input type="text" id="localName" placeholder="请输入昵称（可选，默认匿名）">
+                </div>
+                <div class="form-group">
+                    <label for="localMessage">留言内容</label>
+                    <textarea id="localMessage" placeholder="想留下什么话呢～" required></textarea>
+                </div>
+                <button class="local-submit-btn" id="localSubmitBtn">💚 提交本地留言</button>
+                <div class="local-note">
+                    ℹ️ 本地留言保存在浏览器中，仅在当前设备可见；如需公开展示永久保存，请往下看PR提交方式～
+                </div>
+
+                <div class="local-messages" id="localMessagesContainer">
+                    <!-- 本地留言由JS加载 -->
+                </div>
+            </div>
+
+            <h3 style="color: var(--green-dark); margin: 2rem 0 1rem 0;">🌟 公开永久留言</h3>
             <div class="rumor-wall" id="rumorsContainer">
-                <!-- 留言条目由JS加载 -->
+                <!-- 公开留言条目由JS加载 -->
             </div>
 
             <div class="submit-box">
@@ -285,7 +385,6 @@
                     <li><a href="index.html">首页</a></li>
                     <li><a href="memories.html">回忆</a></li>
                     <li><a href="rumors.html">💬 留言墙</a></li>
-                <li><a href="guestbook.html">📝 留言板</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -338,9 +437,67 @@
                 document.getElementById('latestDate').textContent = rumors[0]?.date || '-';
 
             } catch (e) {
-                container.innerHTML = '<p style="text-align: center; color: #999;">留言加载失败，请刷新重试～</p>';
-                console.error('加载留言失败:', e);
+                container.innerHTML = '<p style="text-align: center; color: #999;">公开留言加载失败，请刷新重试～</p>';
+                console.error('加载公开留言失败:', e);
             }
+
+            // 本地留言功能
+            const LOCAL_STORAGE_KEY = 'xiaolu_local_messages';
+            const localContainer = document.getElementById('localMessagesContainer');
+            const localSubmitBtn = document.getElementById('localSubmitBtn');
+            const localNameInput = document.getElementById('localName');
+            const localMessageInput = document.getElementById('localMessage');
+
+            function escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            function loadLocalMessages() {
+                const messages = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
+                if (messages.length === 0) {
+                    localContainer.innerHTML = '<p style="text-align: center; color: #888; font-size: 0.9rem;">还没有本地留言，快来抢沙发吧～</p>';
+                    return;
+                }
+                let html = '<h4 style="color: var(--green-dark); margin: 1rem 0 0.8rem 0; font-size: 0.95rem;">📬 本地留言（仅本设备可见）</h4>';
+                [...messages].reverse().forEach(msg => {
+                    html += `
+                        <div class="local-message-item">
+                            <div class="local-message-header">
+                                <span class="local-message-author">🌱 ${escapeHtml(msg.name)}</span>
+                                <span class="local-message-date">${msg.date}</span>
+                            </div>
+                            <div>${escapeHtml(msg.message)}</div>
+                        </div>
+                    `;
+                });
+                localContainer.innerHTML = html;
+            }
+
+            localSubmitBtn.addEventListener('click', function() {
+                const name = localNameInput.value.trim() || '匿名';
+                const message = localMessageInput.value.trim();
+                if (!message) {
+                    alert('请输入留言内容哦～');
+                    return;
+                }
+
+                const messages = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
+                messages.push({
+                    name: name,
+                    message: message,
+                    date: new Date().toISOString().split('T')[0]
+                });
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(messages));
+
+                localNameInput.value = '';
+                localMessageInput.value = '';
+                loadLocalMessages();
+                alert('本地留言提交成功！💚');
+            });
+
+            loadLocalMessages();
         });
     </script>
 </body>
