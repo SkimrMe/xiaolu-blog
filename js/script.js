@@ -165,4 +165,46 @@ document.addEventListener('DOMContentLoaded', function() {
         randomImageEl.addEventListener('click', getRandomImage);
         randomImageEl.style.cursor = 'pointer';
     }
+
+    // ========== 主题切换功能 ==========
+    const THEMES = [
+        { id: 'green', name: '经典绿', icon: '🌱' },
+        { id: 'vaporwave', name: '蒸汽波', icon: '💜' },
+        { id: 'frutiger', name: 'Frutiger Aero', icon: '🪟' },
+        { id: 'win98', name: 'Windows 98', icon: '💾' },
+        { id: 'pixel', name: '像素风', icon: '👾' }
+    ];
+
+    // 创建主题切换器
+    const switcher = document.createElement('div');
+    switcher.className = 'theme-switcher';
+    switcher.innerHTML = THEMES.map(t =>
+        `<button class="theme-btn" data-theme="${t.id}" title="${t.name}"></button>`
+    ).join('');
+    document.body.appendChild(switcher);
+
+    // 切换主题
+    function setTheme(themeId) {
+        // 移除所有主题类
+        document.body.classList.remove('theme-vaporwave', 'theme-frutiger', 'theme-win98', 'theme-pixel');
+        // 添加选中主题类（green是默认，不需要class）
+        if (themeId && themeId !== 'green') {
+            document.body.classList.add(`theme-${themeId}`);
+        }
+        // 保存到localStorage
+        localStorage.setItem('blog-theme', themeId || 'green');
+        // 更新按钮状态
+        document.querySelectorAll('.theme-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.theme === (themeId || 'green'));
+        });
+    }
+
+    // 绑定按钮点击
+    switcher.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.addEventListener('click', () => setTheme(btn.dataset.theme));
+    });
+
+    // 加载保存的主题
+    const savedTheme = localStorage.getItem('blog-theme') || 'green';
+    setTheme(savedTheme);
 });

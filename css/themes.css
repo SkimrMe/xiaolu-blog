@@ -1,0 +1,653 @@
+/* 多主题切换系统 */
+
+/* 全局平滑过渡 */
+* {
+    transition: background-color 0.4s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ========================================
+   主题1：蒸汽波 Vaporwave
+   粉紫渐变、霓虹色、复古电子感、故障艺术
+   ======================================== */
+body.theme-vaporwave {
+    background: linear-gradient(135deg, #ff6ec7 0%, #7b68ee 50%, #00d4ff 100%);
+    color: #ff6ec7;
+}
+
+body.theme-vaporwave {
+    --green-light: #ff9ee6;
+    --green-main: #ff6ec7;
+    --green-deep: #c44dff;
+    --green-dark: #7b2d9e;
+    --pink-accent: #00f5ff;
+    --cream: #1a0a2e;
+    --white: #2d1b4e;
+    --shadow: rgba(255, 110, 199, 0.4);
+}
+
+body.theme-vaporwave .header {
+    background: linear-gradient(180deg, #ff6ec7 0%, #7b2d9e 100%);
+}
+
+body.theme-vaporwave .header::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2300f5ff' fill-opacity='0.1'%3E%3Cpath d='M0 20h40M20 0v40' stroke='%2300f5ff' stroke-width='0.5'/%3E%3C/g%3E%3C/svg%3E");
+    animation: glitch 3s infinite;
+}
+
+@keyframes glitch {
+    0%, 90%, 100% { transform: translate(0); }
+    92% { transform: translate(-2px, 2px); }
+    94% { transform: translate(2px, -2px); }
+    96% { transform: translate(-1px, -1px); }
+    98% { transform: translate(1px, 1px); }
+}
+
+body.theme-vaporwave .navbar {
+    background: rgba(45, 27, 78, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid #ff6ec7;
+}
+
+body.theme-vaporwave .nav-container li a {
+    color: #ff9ee6;
+    border-bottom: 3px solid transparent;
+}
+
+body.theme-vaporwave .nav-container li a:hover,
+body.theme-vaporwave .nav-container li a.active {
+    color: #00f5ff;
+    background: rgba(255, 110, 199, 0.1);
+    border-bottom-color: #00f5ff;
+    text-shadow: 0 0 10px #00f5ff;
+}
+
+body.theme-vaporwave .post-card,
+body.theme-vaporwave .sidebar-widget,
+body.theme-vaporwave .memory-card,
+body.theme-vaporwave .rumor-card,
+body.theme-vaporwave .video-card {
+    background: rgba(45, 27, 78, 0.9);
+    border: 1px solid #ff6ec7;
+    backdrop-filter: blur(5px);
+}
+
+body.theme-vaporwave .post-card:hover {
+    border-color: #00f5ff;
+    box-shadow: 0 0 30px rgba(0, 245, 255, 0.3);
+}
+
+body.theme-vaporwave .post-title,
+body.theme-vaporwave .widget-title,
+body.theme-vaporwave .welcome-text h2,
+body.theme-vaporwave .profile-name,
+body.theme-vaporwave .memory-title {
+    color: #00f5ff;
+    text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+}
+
+body.theme-vaporwave .post-date,
+body.theme-vaporwave .tag,
+body.theme-vaporwave .page-link {
+    background: rgba(123, 45, 158, 0.5);
+    color: #ff9ee6;
+    border-color: #ff6ec7;
+}
+
+body.theme-vaporwave .post-excerpt,
+body.theme-vaporwave .profile-bio,
+body.theme-vaporwave .memory-content {
+    color: #d4a5ff;
+}
+
+body.theme-vaporwave .footer {
+    background: linear-gradient(180deg, #7b2d9e 0%, #1a0a2e 100%);
+    border-top: 3px solid #00f5ff;
+}
+
+body.theme-vaporwave .leaf {
+    color: #ff6ec7;
+    text-shadow: 0 0 15px #ff6ec7;
+}
+
+body.theme-vaporwave .logo-text {
+    font-family: 'Courier New', monospace;
+    text-shadow: 3px 3px 0 #00f5ff, -1px -1px 0 #ff6ec7;
+}
+
+/* ========================================
+   主题2：Frutiger Aero
+   2000年代Vista/Win7风格，毛玻璃、光泽按钮、柔和渐变
+   ======================================== */
+body.theme-frutiger {
+    background: linear-gradient(135deg, #87CEEB 0%, #98FB98 50%, #DDA0DD 100%);
+    color: #2E4A5E;
+}
+
+body.theme-frutiger {
+    --green-light: #98FB98;
+    --green-main: #4ECDC4;
+    --green-deep: #2E8B8B;
+    --green-dark: #1a5256;
+    --pink-accent: #FFB6C1;
+    --cream: #f0f8ff;
+    --white: rgba(255, 255, 255, 0.85);
+    --shadow: rgba(0, 100, 150, 0.15);
+}
+
+body.theme-frutiger .header {
+    background: linear-gradient(180deg, #4ECDC4 0%, #2E8B8B 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+body.theme-frutiger .header::before {
+    background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 60%);
+    height: 50%;
+}
+
+body.theme-frutiger .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30%;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.2' d='M0,160L48,170.7C96,181,192,203,288,192C384,181,480,139,576,138.7C672,139,768,181,864,186.7C960,192,1056,160,1152,138.7C1248,117,1344,107,1392,101.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") repeat-x bottom;
+    background-size: cover;
+}
+
+body.theme-frutiger .navbar {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+body.theme-frutiger .nav-container li a {
+    color: #2E4A5E;
+    border-radius: 8px 8px 0 0;
+    margin: 0 2px;
+    padding: 0.8rem 1rem;
+}
+
+body.theme-frutiger .nav-container li a:hover,
+body.theme-frutiger .nav-container li a.active {
+    color: #fff;
+    background: linear-gradient(180deg, #4ECDC4 0%, #2E8B8B 100%);
+    border-bottom-color: transparent;
+    box-shadow: 0 -2px 10px rgba(78, 205, 196, 0.4);
+}
+
+body.theme-frutiger .post-card,
+body.theme-frutiger .sidebar-widget,
+body.theme-frutiger .memory-card,
+body.theme-frutiger .rumor-card,
+body.theme-frutiger .video-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow:
+        0 8px 32px rgba(0, 100, 150, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+body.theme-frutiger .post-card:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 15px 40px rgba(0, 100, 150, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+body.theme-frutiger .post-thumbnail,
+body.theme-frutiger .xiaolu-avatar,
+body.theme-frutiger .profile-avatar,
+body.theme-frutiger .submit-btn,
+body.theme-frutiger .refresh-btn {
+    background: linear-gradient(180deg, #98FB98 0%, #4ECDC4 100%);
+    box-shadow:
+        inset 0 2px 0 rgba(255,255,255,0.5),
+        inset 0 -2px 0 rgba(0,0,0,0.1),
+        0 4px 15px rgba(78, 205, 196, 0.3);
+}
+
+body.theme-frutiger .post-date,
+body.theme-frutiger .tag,
+body.theme-frutiger .page-link,
+body.theme-frutiger .memory-date {
+    background: linear-gradient(180deg, #f0f8ff 0%, #e0f0ff 100%);
+    border: 1px solid rgba(78, 205, 196, 0.3);
+    color: #2E8B8B;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+body.theme-frutiger .footer {
+    background: linear-gradient(180deg, #2E8B8B 0%, #1a5256 100%);
+    border-top: 2px solid rgba(255,255,255,0.3);
+}
+
+body.theme-frutiger .logo-text {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 0 20px rgba(255,255,255,0.3);
+}
+
+/* ========================================
+   主题3：Windows 98
+   经典灰色立体按钮、像素边框、蓝色标题栏
+   ======================================== */
+body.theme-win98 {
+    background: #008080;
+    color: #000;
+    font-family: 'MS Sans Serif', 'Microsoft YaHei', Tahoma, sans-serif;
+}
+
+body.theme-win98 {
+    --green-light: #c0c0c0;
+    --green-main: #000080;
+    --green-deep: #000080;
+    --green-dark: #000000;
+    --pink-accent: #800000;
+    --cream: #ffffff;
+    --white: #c0c0c0;
+    --shadow: #808080;
+}
+
+body.theme-win98 * {
+    border-radius: 0 !important;
+    text-shadow: none !important;
+    animation: none !important;
+}
+
+body.theme-win98 .header {
+    background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
+    padding: 0.5rem 1rem;
+    box-shadow: none;
+    border-bottom: 2px solid #000;
+}
+
+body.theme-win98 .header::before {
+    display: none;
+}
+
+body.theme-win98 .logo-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 0;
+    padding: 0.3rem 0;
+}
+
+body.theme-win98 .logo-sub {
+    display: none;
+}
+
+body.theme-win98 .navbar {
+    background: #c0c0c0;
+    padding: 2px;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+    position: static;
+    box-shadow: none;
+}
+
+body.theme-win98 .nav-container ul {
+    gap: 0;
+}
+
+body.theme-win98 .nav-container li a {
+    color: #000;
+    padding: 0.5rem 1rem;
+    border: 2px solid transparent;
+    font-weight: normal;
+}
+
+body.theme-win98 .nav-container li a:hover {
+    border-top-color: #fff;
+    border-left-color: #fff;
+    border-right-color: #808080;
+    border-bottom-color: #808080;
+    background: #c0c0c0;
+    color: #000;
+}
+
+body.theme-win98 .nav-container li a.active {
+    border-top-color: #808080;
+    border-left-color: #808080;
+    border-right-color: #fff;
+    border-bottom-color: #fff;
+    background: #c0c0c0;
+    color: #000;
+}
+
+body.theme-win98 .post-card,
+body.theme-win98 .sidebar-widget,
+body.theme-win98 .memory-card,
+body.theme-win98 .rumor-card,
+body.theme-win98 .video-card {
+    background: #c0c0c0;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+body.theme-win98 .post-card:hover {
+    transform: none;
+}
+
+body.theme-win98 .widget-title {
+    background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
+    color: white;
+    padding: 0.3rem 0.5rem;
+    margin: -1.5rem -1.5rem 1rem -1.5rem;
+    text-align: left;
+    border-bottom: 2px solid #000;
+    letter-spacing: 0;
+}
+
+body.theme-win98 .post-title,
+body.theme-win98 .welcome-text h2,
+body.theme-win98 .profile-name {
+    color: #000080;
+    font-weight: bold;
+}
+
+body.theme-win98 .post-thumbnail {
+    background: #fff;
+    border: 2px inset #c0c0c0;
+}
+
+body.theme-win98 .post-date,
+body.theme-win98 .tag,
+body.theme-win98 .page-link {
+    background: #c0c0c0;
+    color: #000;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #808080;
+    border-bottom: 1px solid #808080;
+    border-radius: 0;
+    padding: 0.2rem 0.5rem;
+}
+
+body.theme-win98 .footer {
+    background: #c0c0c0;
+    color: #000;
+    border-top: 2px solid #fff;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+}
+
+body.theme-win98 .footer-section h4 {
+    color: #000080;
+}
+
+body.theme-win98 .footer-section a {
+    color: #000080;
+    text-decoration: underline;
+}
+
+body.theme-win98 .leaves {
+    display: none;
+}
+
+body.theme-win98 .welcome-banner {
+    background: #c0c0c0;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+    border-radius: 0;
+}
+
+body.theme-win98 .page-link:hover,
+body.theme-win98 .page-link.active {
+    background: #000080;
+    color: #fff;
+    border: 2px outset #c0c0c0;
+}
+
+/* ========================================
+   主题4：像素风格 Pixel
+   像素字体、像素边框、8bit配色、方块化
+   ======================================== */
+body.theme-pixel {
+    background: #1a1a2e;
+    color: #e0e0e0;
+    font-family: 'Courier New', monospace;
+    image-rendering: pixelated;
+}
+
+body.theme-pixel {
+    --green-light: #50fa7b;
+    --green-main: #39ff14;
+    --green-deep: #00ff7f;
+    --green-dark: #003b00;
+    --pink-accent: #ff79c6;
+    --cream: #282a36;
+    --white: #282a36;
+    --shadow: rgba(57, 255, 20, 0.3);
+}
+
+body.theme-pixel * {
+    border-radius: 0 !important;
+}
+
+body.theme-pixel .header {
+    background: #000;
+    border-bottom: 4px solid #39ff14;
+    padding: 1.5rem 1rem;
+    position: relative;
+}
+
+body.theme-pixel .header::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='0' width='8' height='8' fill='%2339ff14' fill-opacity='0.05'/%3E%3Crect x='8' y='8' width='8' height='8' fill='%2339ff14' fill-opacity='0.05'/%3E%3C/svg%3E");
+}
+
+body.theme-pixel .logo-text {
+    font-family: 'Courier New', monospace;
+    font-size: 2rem;
+    color: #39ff14;
+    text-shadow: 3px 3px 0 #00ff7f, -2px -2px 0 #ff79c6;
+    letter-spacing: 2px;
+}
+
+body.theme-pixel .logo-sub {
+    color: #50fa7b;
+}
+
+body.theme-pixel .navbar {
+    background: #000;
+    border-bottom: 3px solid #39ff14;
+    box-shadow: none;
+}
+
+body.theme-pixel .nav-container li a {
+    color: #50fa7b;
+    padding: 0.8rem 1rem;
+    border: 2px solid transparent;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+body.theme-pixel .nav-container li a:hover {
+    background: #39ff14;
+    color: #000;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #50fa7b #003b00 #003b00 #50fa7b;
+}
+
+body.theme-pixel .nav-container li a.active {
+    background: #39ff14;
+    color: #000;
+    border: 2px solid;
+    border-color: #50fa7b #003b00 #003b00 #50fa7b;
+}
+
+body.theme-pixel .post-card,
+body.theme-pixel .sidebar-widget,
+body.theme-pixel .memory-card,
+body.theme-pixel .rumor-card,
+body.theme-pixel .video-card {
+    background: #282a36;
+    border: 4px solid #39ff14;
+    box-shadow:
+        8px 8px 0 rgba(57, 255, 20, 0.2),
+        inset 0 0 0 2px #000;
+}
+
+body.theme-pixel .post-card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow:
+        12px 12px 0 rgba(57, 255, 20, 0.3),
+        inset 0 0 0 2px #000;
+    border-color: #ff79c6;
+}
+
+body.theme-pixel .post-thumbnail,
+body.theme-pixel .xiaolu-avatar,
+body.theme-pixel .profile-avatar {
+    background: #000;
+    border: 4px solid #39ff14;
+    box-shadow: 4px 4px 0 rgba(57, 255, 20, 0.3);
+}
+
+body.theme-pixel .post-title,
+body.theme-pixel .widget-title,
+body.theme-pixel .welcome-text h2,
+body.theme-pixel .profile-name,
+body.theme-pixel .memory-title {
+    color: #39ff14;
+    text-shadow: 2px 2px 0 #003b00;
+    letter-spacing: 1px;
+}
+
+body.theme-pixel .widget-title {
+    border-bottom: 3px dashed #39ff14;
+}
+
+body.theme-pixel .post-date,
+body.theme-pixel .tag,
+body.theme-pixel .page-link,
+body.theme-pixel .memory-date {
+    background: #000;
+    color: #39ff14;
+    border: 2px solid #39ff14;
+}
+
+body.theme-pixel .post-excerpt,
+body.theme-pixel .profile-bio,
+body.theme-pixel .memory-content,
+body.theme-pixel .rumor-content {
+    color: #b0b0b0;
+}
+
+body.theme-pixel .footer {
+    background: #000;
+    border-top: 4px solid #39ff14;
+    color: #50fa7b;
+}
+
+body.theme-pixel .footer-section h4 {
+    color: #39ff14;
+}
+
+body.theme-pixel .leaf {
+    font-size: 16px;
+    opacity: 0.3;
+    color: #39ff14;
+    animation-duration: 15s;
+}
+
+body.theme-pixel .welcome-banner {
+    background: #282a36;
+    border: 4px solid #39ff14;
+    box-shadow: 8px 8px 0 rgba(57, 255, 20, 0.2);
+}
+
+body.theme-pixel .page-link:hover,
+body.theme-pixel .page-link.active {
+    background: #39ff14;
+    color: #000;
+}
+
+body.theme-pixel .tag-item:hover,
+body.theme-pixel .submit-btn,
+body.theme-pixel .refresh-btn {
+    background: #39ff14;
+    color: #000;
+    border: 2px solid #50fa7b;
+    text-shadow: none;
+    box-shadow: 4px 4px 0 rgba(57, 255, 20, 0.3);
+}
+
+/* 主题切换按钮 */
+.theme-switcher {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 9999;
+    background: var(--white, #fff);
+    border: 2px solid var(--green-main, #32CD32);
+    border-radius: 12px;
+    padding: 0.5rem;
+    box-shadow: 0 4px 15px var(--shadow, rgba(0,0,0,0.1));
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    max-width: 200px;
+}
+
+.theme-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.theme-btn:hover {
+    transform: scale(1.2);
+}
+
+.theme-btn.active {
+    border-color: #333;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #333;
+}
+
+.theme-btn[data-theme="green"] {
+    background: linear-gradient(135deg, #90EE90, #228B22);
+}
+
+.theme-btn[data-theme="vaporwave"] {
+    background: linear-gradient(135deg, #ff6ec7, #7b68ee);
+}
+
+.theme-btn[data-theme="frutiger"] {
+    background: linear-gradient(135deg, #87CEEB, #98FB98);
+}
+
+.theme-btn[data-theme="win98"] {
+    background: linear-gradient(135deg, #c0c0c0, #000080);
+}
+
+.theme-btn[data-theme="pixel"] {
+    background: #282a36;
+    border: 3px dashed #39ff14;
+}
+
+@media (max-width: 768px) {
+    .theme-switcher {
+        top: auto;
+        bottom: 1rem;
+        right: 1rem;
+        max-width: 180px;
+    }
+}
