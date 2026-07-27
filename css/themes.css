@@ -1,4 +1,7 @@
-/* 多主题切换系统 */
+/* ============================================================
+   多主题切换系统 - 全站覆盖版
+   支持：经典绿 / 蒸汽波 / Frutiger Aero / Win98 / 像素风
+   ============================================================ */
 
 /* 全局平滑过渡 */
 * {
@@ -7,14 +10,20 @@
 
 /* ========================================
    主题1：蒸汽波 Vaporwave
-   粉紫渐变、霓虹色、复古电子感、故障艺术
+   粉紫霓虹、落日渐变、复古电子感、网格地面
    ======================================== */
 body.theme-vaporwave {
-    background: linear-gradient(135deg, #ff6ec7 0%, #7b68ee 50%, #00d4ff 100%);
+    background: linear-gradient(180deg,
+        #0a0015 0%,
+        #1a0533 15%,
+        #4a1060 30%,
+        #ff6b9d 50%,
+        #ffa07a 65%,
+        #ffd700 80%,
+        #1a0533 100%
+    );
+    background-attachment: fixed;
     color: #ff6ec7;
-}
-
-body.theme-vaporwave {
     --green-light: #ff9ee6;
     --green-main: #ff6ec7;
     --green-deep: #c44dff;
@@ -25,12 +34,59 @@ body.theme-vaporwave {
     --shadow: rgba(255, 110, 199, 0.4);
 }
 
+/* 蒸汽波落日 - 大太阳 */
+body.theme-vaporwave::before {
+    content: '';
+    position: fixed;
+    top: 12%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: linear-gradient(180deg,
+        #ffd700 0%,
+        #ffa07a 40%,
+        #ff6b9d 55%,
+        #ff6b9d 55%,
+        #4a1060 56%, #4a1060 60%,
+        #ff6b9d 61%, #ff6b9d 65%,
+        #4a1060 66%, #4a1060 70%,
+        #ff6b9d 71%, #ff6b9d 75%,
+        #4a1060 76%
+    );
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.55;
+}
+
+/* 蒸汽波网格地面 */
+body.theme-vaporwave::after {
+    content: '';
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background:
+        linear-gradient(180deg, transparent 0%, rgba(0, 245, 255, 0.05) 20%, rgba(0, 245, 255, 0.12) 100%),
+        repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(0, 245, 255, 0.25) 50px),
+        repeating-linear-gradient(0deg, transparent, transparent 29px, rgba(255, 110, 199, 0.15) 30px);
+    transform: perspective(500px) rotateX(60deg);
+    transform-origin: bottom center;
+    z-index: 0;
+    pointer-events: none;
+    mask-image: linear-gradient(180deg, transparent 0%, black 30%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 30%);
+}
+
 body.theme-vaporwave .header {
-    background: linear-gradient(180deg, #ff6ec7 0%, #7b2d9e 100%);
+    background: linear-gradient(180deg, rgba(123, 45, 158, 0.9) 0%, rgba(26, 10, 46, 0.95) 100%);
+    border-bottom: 2px solid #ff6ec7;
 }
 
 body.theme-vaporwave .header::before {
-    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2300f5ff' fill-opacity='0.1'%3E%3Cpath d='M0 20h40M20 0v40' stroke='%2300f5ff' stroke-width='0.5'/%3E%3C/g%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2300f5ff' fill-opacity='0.08'%3E%3Cpath d='M0 20h40M20 0v40' stroke='%2300f5ff' stroke-width='0.5'/%3E%3C/g%3E%3C/svg%3E");
     animation: glitch 3s infinite;
 }
 
@@ -61,17 +117,30 @@ body.theme-vaporwave .nav-container li a.active {
     text-shadow: 0 0 10px #00f5ff;
 }
 
+/* 通用卡片/容器 - 蒸汽波 */
 body.theme-vaporwave .post-card,
 body.theme-vaporwave .sidebar-widget,
 body.theme-vaporwave .memory-card,
 body.theme-vaporwave .rumor-card,
-body.theme-vaporwave .video-card {
+body.theme-vaporwave .video-card,
+body.theme-vaporwave .about-card,
+body.theme-vaporwave .welcome-banner,
+body.theme-vaporwave .game-container,
+body.theme-vaporwave .score-board,
+body.theme-vaporwave .game-controls,
+body.theme-vaporwave .game-message,
+body.theme-vaporwave .local-form,
+body.theme-vaporwave .local-messages,
+body.theme-vaporwave .memory-intro,
+body.theme-vaporwave .gallery-info {
     background: rgba(45, 27, 78, 0.9);
     border: 1px solid #ff6ec7;
     backdrop-filter: blur(5px);
 }
 
-body.theme-vaporwave .post-card:hover {
+body.theme-vaporwave .post-card:hover,
+body.theme-vaporwave .video-card:hover,
+body.theme-vaporwave .memory-card:hover {
     border-color: #00f5ff;
     box-shadow: 0 0 30px rgba(0, 245, 255, 0.3);
 }
@@ -80,14 +149,16 @@ body.theme-vaporwave .post-title,
 body.theme-vaporwave .widget-title,
 body.theme-vaporwave .welcome-text h2,
 body.theme-vaporwave .profile-name,
-body.theme-vaporwave .memory-title {
+body.theme-vaporwave .memory-title,
+body.theme-vaporwave .video-title {
     color: #00f5ff;
     text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
 }
 
 body.theme-vaporwave .post-date,
 body.theme-vaporwave .tag,
-body.theme-vaporwave .page-link {
+body.theme-vaporwave .page-link,
+body.theme-vaporwave .memory-date {
     background: rgba(123, 45, 158, 0.5);
     color: #ff9ee6;
     border-color: #ff6ec7;
@@ -95,8 +166,21 @@ body.theme-vaporwave .page-link {
 
 body.theme-vaporwave .post-excerpt,
 body.theme-vaporwave .profile-bio,
-body.theme-vaporwave .memory-content {
+body.theme-vaporwave .memory-content,
+body.theme-vaporwave .rumor-content,
+body.theme-vaporwave .welcome-text p,
+body.theme-vaporwave .info-value,
+body.theme-vaporwave .local-message-content,
+body.theme-vaporwave .video-description,
+body.theme-vaporwave .sidebar-widget p {
     color: #d4a5ff;
+}
+
+body.theme-vaporwave .info-label,
+body.theme-vaporwave .memory-tag,
+body.theme-vaporwave .local-message-author,
+body.theme-vaporwave .video-views {
+    color: #ff9ee6;
 }
 
 body.theme-vaporwave .footer {
@@ -104,26 +188,73 @@ body.theme-vaporwave .footer {
     border-top: 3px solid #00f5ff;
 }
 
-body.theme-vaporwave .leaf {
-    color: #ff6ec7;
-    text-shadow: 0 0 15px #ff6ec7;
-}
-
 body.theme-vaporwave .logo-text {
     font-family: 'Courier New', monospace;
     text-shadow: 3px 3px 0 #00f5ff, -1px -1px 0 #ff6ec7;
 }
 
-/* ========================================
-   主题2：Frutiger Aero
-   2000年代Vista/Win7风格，毛玻璃、光泽按钮、柔和渐变
-   ======================================== */
-body.theme-frutiger {
-    background: linear-gradient(135deg, #87CEEB 0%, #98FB98 50%, #DDA0DD 100%);
-    color: #2E4A5E;
+body.theme-vaporwave .guardian-box {
+    background: rgba(123, 45, 158, 0.3);
+    border-color: #ff6ec7;
+}
+body.theme-vaporwave .guardian-box p,
+body.theme-vaporwave .guardian-box strong { color: #d4a5ff; }
+
+body.theme-vaporwave .post-thumbnail,
+body.theme-vaporwave .xiaolu-avatar,
+body.theme-vaporwave .profile-avatar {
+    background: linear-gradient(135deg, #ff6ec7, #7b68ee);
+    border-color: #00f5ff;
 }
 
+body.theme-vaporwave .tag-item,
+body.theme-vaporwave .refresh-btn,
+body.theme-vaporwave .submit-btn,
+body.theme-vaporwave .game-btn,
+body.theme-vaporwave .mobile-btn {
+    background: rgba(123, 45, 158, 0.6);
+    color: #ff9ee6;
+    border: 1px solid #ff6ec7;
+}
+
+body.theme-vaporwave .tag-item:hover,
+body.theme-vaporwave .refresh-btn:hover,
+body.theme-vaporwave .submit-btn:hover,
+body.theme-vaporwave .game-btn:hover {
+    background: #ff6ec7;
+    color: #1a0a2e;
+    box-shadow: 0 0 15px rgba(255, 110, 199, 0.5);
+}
+
+body.theme-vaporwave .latest-posts a { color: #d4a5ff; }
+body.theme-vaporwave .latest-posts a:hover { color: #00f5ff; text-shadow: 0 0 8px #00f5ff; }
+body.theme-vaporwave .latest-date { color: #ff6ec7; }
+body.theme-vaporwave .latest-posts li { border-bottom-color: rgba(255, 110, 199, 0.2); }
+body.theme-vaporwave .birthday-badge { background: rgba(0, 245, 255, 0.15); border-color: #00f5ff; color: #00f5ff; }
+body.theme-vaporwave .image-info { background: rgba(123, 45, 158, 0.4); border-color: #ff6ec7; color: #ff9ee6; }
+body.theme-vaporwave .image-hint { color: #ff9ee6; }
+body.theme-vaporwave .random-image { border-color: #ff6ec7; }
+body.theme-vaporwave .local-message-item { background: rgba(123, 45, 158, 0.2); border-color: #ff6ec7; }
+body.theme-vaporwave input, body.theme-vaporwave textarea {
+    background: rgba(26, 10, 46, 0.8); color: #d4a5ff; border-color: #ff6ec7;
+}
+body.theme-vaporwave .code-template { background: rgba(0,0,0,0.5); color: #00f5ff; border-color: #ff6ec7; }
+body.theme-vaporwave .control-hint { color: #d4a5ff; }
+body.theme-vaporwave .key { background: rgba(123, 45, 158, 0.5); border-color: #ff6ec7; color: #ff9ee6; }
+body.theme-vaporwave .gallery-grid img { border: 2px solid #ff6ec7; }
+body.theme-vaporwave .video-embed iframe { border: 2px solid #ff6ec7; }
+body.theme-vaporwave .read-more { color: #00f5ff; }
+body.theme-vaporwave .heart { color: #ff6ec7; }
+
+
+/* ========================================
+   主题2：Frutiger Aero
+   Vista/Win7风格，毛玻璃、气泡、光泽按钮、自然渐变
+   ======================================== */
 body.theme-frutiger {
+    background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 30%, #98FB98 70%, #90EE90 100%);
+    background-attachment: fixed;
+    color: #2E4A5E;
     --green-light: #98FB98;
     --green-main: #4ECDC4;
     --green-deep: #2E8B8B;
@@ -134,6 +265,30 @@ body.theme-frutiger {
     --shadow: rgba(0, 100, 150, 0.15);
 }
 
+/* Frutiger Aero 漂浮气泡 */
+body.theme-frutiger::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,0.35) 0%, transparent 8%),
+        radial-gradient(circle at 80% 15%, rgba(255,255,255,0.3) 0%, transparent 6%),
+        radial-gradient(circle at 30% 60%, rgba(173,216,230,0.4) 0%, transparent 10%),
+        radial-gradient(circle at 70% 80%, rgba(152,251,152,0.35) 0%, transparent 8%),
+        radial-gradient(circle at 50% 40%, rgba(255,255,255,0.25) 0%, transparent 5%),
+        radial-gradient(circle at 90% 50%, rgba(255,255,255,0.3) 0%, transparent 7%),
+        radial-gradient(circle at 20% 85%, rgba(135,206,235,0.35) 0%, transparent 9%),
+        radial-gradient(circle at 60% 10%, rgba(255,255,255,0.2) 0%, transparent 4%);
+    z-index: 0;
+    pointer-events: none;
+    animation: bubbles 25s ease-in-out infinite;
+}
+
+@keyframes bubbles {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
 body.theme-frutiger .header {
     background: linear-gradient(180deg, #4ECDC4 0%, #2E8B8B 100%);
     position: relative;
@@ -141,25 +296,30 @@ body.theme-frutiger .header {
 }
 
 body.theme-frutiger .header::before {
-    background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 60%);
-    height: 50%;
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 60%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
 }
 
 body.theme-frutiger .header::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 30%;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.2' d='M0,160L48,170.7C96,181,192,203,288,192C384,181,480,139,576,138.7C672,139,768,181,864,186.7C960,192,1056,160,1152,138.7C1248,117,1344,107,1392,101.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") repeat-x bottom;
+    bottom: 0; left: 0; right: 0;
+    height: 35%;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.25' d='M0,160L48,170.7C96,181,192,203,288,192C384,181,480,139,576,138.7C672,139,768,181,864,186.7C960,192,1056,160,1152,138.7C1248,117,1344,107,1392,101.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") repeat-x bottom;
     background-size: cover;
+    pointer-events: none;
 }
 
 body.theme-frutiger .navbar {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 20px rgba(0, 100, 150, 0.1);
 }
 
 body.theme-frutiger .nav-container li a {
@@ -174,50 +334,72 @@ body.theme-frutiger .nav-container li a.active {
     color: #fff;
     background: linear-gradient(180deg, #4ECDC4 0%, #2E8B8B 100%);
     border-bottom-color: transparent;
-    box-shadow: 0 -2px 10px rgba(78, 205, 196, 0.4);
+    box-shadow: 0 -2px 15px rgba(78, 205, 196, 0.5), inset 0 1px 0 rgba(255,255,255,0.4);
 }
 
+/* 通用卡片/容器 - Frutiger Aero 玻璃质感 */
 body.theme-frutiger .post-card,
 body.theme-frutiger .sidebar-widget,
 body.theme-frutiger .memory-card,
 body.theme-frutiger .rumor-card,
-body.theme-frutiger .video-card {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(15px);
+body.theme-frutiger .video-card,
+body.theme-frutiger .about-card,
+body.theme-frutiger .welcome-banner,
+body.theme-frutiger .game-container,
+body.theme-frutiger .score-board,
+body.theme-frutiger .game-controls,
+body.theme-frutiger .game-message,
+body.theme-frutiger .local-form,
+body.theme-frutiger .local-messages,
+body.theme-frutiger .memory-intro,
+body.theme-frutiger .gallery-info {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.9);
     border-radius: 20px;
     box-shadow:
-        0 8px 32px rgba(0, 100, 150, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        0 8px 32px rgba(0, 100, 150, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        inset 0 -1px 0 rgba(0, 100, 150, 0.05);
 }
 
-body.theme-frutiger .post-card:hover {
+body.theme-frutiger .post-card:hover,
+body.theme-frutiger .video-card:hover,
+body.theme-frutiger .memory-card:hover {
     transform: translateY(-3px);
     box-shadow:
         0 15px 40px rgba(0, 100, 150, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
 body.theme-frutiger .post-thumbnail,
 body.theme-frutiger .xiaolu-avatar,
 body.theme-frutiger .profile-avatar,
 body.theme-frutiger .submit-btn,
-body.theme-frutiger .refresh-btn {
+body.theme-frutiger .refresh-btn,
+body.theme-frutiger .game-btn,
+body.theme-frutiger .mobile-btn {
     background: linear-gradient(180deg, #98FB98 0%, #4ECDC4 100%);
     box-shadow:
-        inset 0 2px 0 rgba(255,255,255,0.5),
+        inset 0 2px 0 rgba(255,255,255,0.6),
         inset 0 -2px 0 rgba(0,0,0,0.1),
-        0 4px 15px rgba(78, 205, 196, 0.3);
+        0 4px 15px rgba(78, 205, 196, 0.4);
+    border: 1px solid rgba(255,255,255,0.5);
+    color: white;
 }
 
 body.theme-frutiger .post-date,
 body.theme-frutiger .tag,
 body.theme-frutiger .page-link,
-body.theme-frutiger .memory-date {
+body.theme-frutiger .memory-date,
+body.theme-frutiger .tag-item,
+body.theme-frutiger .memory-tag,
+body.theme-frutiger .image-info {
     background: linear-gradient(180deg, #f0f8ff 0%, #e0f0ff 100%);
     border: 1px solid rgba(78, 205, 196, 0.3);
     color: #2E8B8B;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
 }
 
 body.theme-frutiger .footer {
@@ -226,20 +408,73 @@ body.theme-frutiger .footer {
 }
 
 body.theme-frutiger .logo-text {
-    text-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 0 20px rgba(255,255,255,0.3);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 0 20px rgba(255,255,255,0.4);
 }
+
+body.theme-frutiger .guardian-box {
+    background: linear-gradient(135deg, rgba(152,251,152,0.3), rgba(78,205,196,0.3));
+    border: 1px solid rgba(255,255,255,0.6);
+    backdrop-filter: blur(10px);
+}
+
+body.theme-frutiger .widget-title { border-bottom-color: rgba(78, 205, 196, 0.3); }
+body.theme-frutiger .latest-posts li { border-bottom-color: rgba(78, 205, 196, 0.15); }
+
+body.theme-frutiger input, body.theme-frutiger textarea {
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(78, 205, 196, 0.3);
+    backdrop-filter: blur(5px);
+    color: #2E4A5E;
+}
+
+body.theme-frutiger .local-message-item {
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(78, 205, 196, 0.2);
+}
+
+body.theme-frutiger .code-template {
+    background: rgba(240,248,255,0.85);
+    border: 1px solid rgba(78, 205, 196, 0.3);
+    color: #2E4A5E;
+}
+
+body.theme-frutiger .key {
+    background: linear-gradient(180deg, #fff, #e0f0ff);
+    border: 1px solid rgba(78, 205, 196, 0.4);
+    box-shadow: inset 0 1px 0 white;
+    color: #2E8B8B;
+}
+
+body.theme-frutiger .gallery-grid img {
+    border: 3px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 15px rgba(0, 100, 150, 0.15);
+}
+
+body.theme-frutiger .video-embed iframe {
+    border: 3px solid rgba(255,255,255,0.8);
+    border-radius: 12px;
+}
+
+body.theme-frutiger .birthday-badge {
+    background: rgba(255,255,255,0.3);
+    border-color: rgba(255,255,255,0.6);
+    backdrop-filter: blur(5px);
+}
+
+body.theme-frutiger .random-image {
+    border: 3px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 15px rgba(0, 100, 150, 0.15);
+}
+
 
 /* ========================================
    主题3：Windows 98
-   经典灰色立体按钮、像素边框、蓝色标题栏
+   经典灰色3D边框、蓝色标题栏、无圆角
    ======================================== */
 body.theme-win98 {
     background: #008080;
     color: #000;
     font-family: 'MS Sans Serif', 'Microsoft YaHei', Tahoma, sans-serif;
-}
-
-body.theme-win98 {
     --green-light: #c0c0c0;
     --green-main: #000080;
     --green-deep: #000080;
@@ -253,7 +488,6 @@ body.theme-win98 {
 body.theme-win98 * {
     border-radius: 0 !important;
     text-shadow: none !important;
-    animation: none !important;
 }
 
 body.theme-win98 .header {
@@ -263,164 +497,139 @@ body.theme-win98 .header {
     border-bottom: 2px solid #000;
 }
 
-body.theme-win98 .header::before {
-    display: none;
-}
+body.theme-win98 .header::before { display: none; }
 
 body.theme-win98 .logo-text {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: white;
-    letter-spacing: 0;
-    padding: 0.3rem 0;
+    font-size: 1.2rem; font-weight: bold; color: white; letter-spacing: 0; padding: 0.3rem 0;
 }
-
-body.theme-win98 .logo-sub {
-    display: none;
-}
+body.theme-win98 .logo-sub { display: none; }
 
 body.theme-win98 .navbar {
-    background: #c0c0c0;
-    padding: 2px;
-    border-top: 2px solid #fff;
-    border-left: 2px solid #fff;
-    border-right: 2px solid #808080;
-    border-bottom: 2px solid #808080;
-    position: static;
-    box-shadow: none;
+    background: #c0c0c0; padding: 2px;
+    border-top: 2px solid #fff; border-left: 2px solid #fff;
+    border-right: 2px solid #808080; border-bottom: 2px solid #808080;
+    position: static; box-shadow: none;
 }
 
-body.theme-win98 .nav-container ul {
-    gap: 0;
-}
+body.theme-win98 .nav-container ul { gap: 0; }
 
 body.theme-win98 .nav-container li a {
-    color: #000;
-    padding: 0.5rem 1rem;
-    border: 2px solid transparent;
-    font-weight: normal;
+    color: #000; padding: 0.5rem 1rem; border: 2px solid transparent; font-weight: normal;
 }
 
 body.theme-win98 .nav-container li a:hover {
-    border-top-color: #fff;
-    border-left-color: #fff;
-    border-right-color: #808080;
-    border-bottom-color: #808080;
-    background: #c0c0c0;
-    color: #000;
+    border-top-color: #fff; border-left-color: #fff;
+    border-right-color: #808080; border-bottom-color: #808080;
+    background: #c0c0c0; color: #000;
 }
 
 body.theme-win98 .nav-container li a.active {
-    border-top-color: #808080;
-    border-left-color: #808080;
-    border-right-color: #fff;
-    border-bottom-color: #fff;
-    background: #c0c0c0;
-    color: #000;
+    border-top-color: #808080; border-left-color: #808080;
+    border-right-color: #fff; border-bottom-color: #fff;
+    background: #c0c0c0; color: #000;
 }
 
+/* 通用卡片/容器 - Win98 */
 body.theme-win98 .post-card,
 body.theme-win98 .sidebar-widget,
 body.theme-win98 .memory-card,
 body.theme-win98 .rumor-card,
-body.theme-win98 .video-card {
+body.theme-win98 .video-card,
+body.theme-win98 .about-card,
+body.theme-win98 .welcome-banner,
+body.theme-win98 .game-container,
+body.theme-win98 .score-board,
+body.theme-win98 .game-controls,
+body.theme-win98 .game-message,
+body.theme-win98 .local-form,
+body.theme-win98 .local-messages,
+body.theme-win98 .memory-intro,
+body.theme-win98 .gallery-info,
+body.theme-win98 .guardian-box {
     background: #c0c0c0;
-    border-top: 2px solid #fff;
-    border-left: 2px solid #fff;
-    border-right: 2px solid #808080;
-    border-bottom: 2px solid #808080;
-    box-shadow: none;
-    border-radius: 0;
+    border-top: 2px solid #fff; border-left: 2px solid #fff;
+    border-right: 2px solid #808080; border-bottom: 2px solid #808080;
+    box-shadow: none; border-radius: 0;
 }
 
-body.theme-win98 .post-card:hover {
-    transform: none;
-}
+body.theme-win98 .post-card:hover { transform: none; }
 
 body.theme-win98 .widget-title {
     background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
-    color: white;
-    padding: 0.3rem 0.5rem;
+    color: white; padding: 0.3rem 0.5rem;
     margin: -1.5rem -1.5rem 1rem -1.5rem;
-    text-align: left;
-    border-bottom: 2px solid #000;
-    letter-spacing: 0;
+    text-align: left; border-bottom: 2px solid #000; letter-spacing: 0;
 }
 
 body.theme-win98 .post-title,
 body.theme-win98 .welcome-text h2,
-body.theme-win98 .profile-name {
-    color: #000080;
-    font-weight: bold;
+body.theme-win98 .profile-name,
+body.theme-win98 .memory-title,
+body.theme-win98 .video-title,
+body.theme-win98 .info-label {
+    color: #000080; font-weight: bold;
 }
 
-body.theme-win98 .post-thumbnail {
-    background: #fff;
-    border: 2px inset #c0c0c0;
+body.theme-win98 .post-thumbnail,
+body.theme-win98 .xiaolu-avatar,
+body.theme-win98 .profile-avatar {
+    background: #fff; border: 2px inset #c0c0c0;
 }
 
 body.theme-win98 .post-date,
 body.theme-win98 .tag,
-body.theme-win98 .page-link {
-    background: #c0c0c0;
-    color: #000;
-    border-top: 1px solid #fff;
-    border-left: 1px solid #fff;
-    border-right: 1px solid #808080;
-    border-bottom: 1px solid #808080;
-    border-radius: 0;
-    padding: 0.2rem 0.5rem;
-}
-
-body.theme-win98 .footer {
-    background: #c0c0c0;
-    color: #000;
-    border-top: 2px solid #fff;
-    padding: 0.5rem 1rem;
-    margin-top: 1rem;
-}
-
-body.theme-win98 .footer-section h4 {
-    color: #000080;
-}
-
-body.theme-win98 .footer-section a {
-    color: #000080;
-    text-decoration: underline;
-}
-
-body.theme-win98 .leaves {
-    display: none;
-}
-
-body.theme-win98 .welcome-banner {
-    background: #c0c0c0;
-    border-top: 2px solid #fff;
-    border-left: 2px solid #fff;
-    border-right: 2px solid #808080;
-    border-bottom: 2px solid #808080;
-    border-radius: 0;
+body.theme-win98 .page-link,
+body.theme-win98 .memory-date,
+body.theme-win98 .tag-item,
+body.theme-win98 .refresh-btn,
+body.theme-win98 .submit-btn,
+body.theme-win98 .game-btn,
+body.theme-win98 .mobile-btn {
+    background: #c0c0c0; color: #000;
+    border-top: 1px solid #fff; border-left: 1px solid #fff;
+    border-right: 1px solid #808080; border-bottom: 1px solid #808080;
+    border-radius: 0; padding: 0.2rem 0.5rem; box-shadow: none;
 }
 
 body.theme-win98 .page-link:hover,
-body.theme-win98 .page-link.active {
-    background: #000080;
-    color: #fff;
-    border: 2px outset #c0c0c0;
+body.theme-win98 .page-link.active,
+body.theme-win98 .refresh-btn:hover,
+body.theme-win98 .submit-btn:hover,
+body.theme-win98 .game-btn:hover,
+body.theme-win98 .tag-item:hover {
+    background: #000080; color: #fff; border: 2px outset #c0c0c0;
 }
+
+body.theme-win98 .footer {
+    background: #c0c0c0; color: #000; border-top: 2px solid #fff; padding: 0.5rem 1rem; margin-top: 1rem;
+}
+body.theme-win98 .footer-section h4 { color: #000080; }
+body.theme-win98 .footer-section a { color: #000080; text-decoration: underline; }
+body.theme-win98 .leaves { display: none; }
+
+body.theme-win98 .local-message-item { background: #fff; border: 2px inset #c0c0c0; }
+body.theme-win98 input, body.theme-win98 textarea { background: #fff; border: 2px inset #c0c0c0; color: #000; }
+body.theme-win98 .code-template { background: #fff; border: 2px inset #c0c0c0; color: #000; }
+body.theme-win98 .key {
+    background: #c0c0c0;
+    border-top: 1px solid #fff; border-left: 1px solid #fff;
+    border-right: 1px solid #808080; border-bottom: 1px solid #808080;
+    color: #000; box-shadow: none;
+}
+body.theme-win98 .gallery-grid img { border: 2px inset #c0c0c0; }
+body.theme-win98 .video-embed iframe { border: 2px inset #c0c0c0; }
+body.theme-win98 .birthday-badge { background: #c0c0c0; border: 1px solid #000; color: #000; }
+
 
 /* ========================================
    主题4：像素风格 Pixel
-   像素字体、像素边框、8bit配色、方块化
+   CRT绿字黑底、像素字体、方块阴影、8-bit
    ======================================== */
 body.theme-pixel {
-    background: #1a1a2e;
+    background: #0d0d1a;
     color: #e0e0e0;
     font-family: 'Courier New', monospace;
     image-rendering: pixelated;
-}
-
-body.theme-pixel {
     --green-light: #50fa7b;
     --green-main: #39ff14;
     --green-deep: #00ff7f;
@@ -431,15 +640,26 @@ body.theme-pixel {
     --shadow: rgba(57, 255, 20, 0.3);
 }
 
-body.theme-pixel * {
-    border-radius: 0 !important;
+/* CRT扫描线效果 */
+body.theme-pixel::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,0.15) 0px,
+        rgba(0,0,0,0.15) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    z-index: 9998;
+    pointer-events: none;
 }
 
+body.theme-pixel * { border-radius: 0 !important; }
+
 body.theme-pixel .header {
-    background: #000;
-    border-bottom: 4px solid #39ff14;
-    padding: 1.5rem 1rem;
-    position: relative;
+    background: #000; border-bottom: 4px solid #39ff14; padding: 1.5rem 1rem; position: relative;
 }
 
 body.theme-pixel .header::before {
@@ -447,145 +667,140 @@ body.theme-pixel .header::before {
 }
 
 body.theme-pixel .logo-text {
-    font-family: 'Courier New', monospace;
-    font-size: 2rem;
-    color: #39ff14;
-    text-shadow: 3px 3px 0 #00ff7f, -2px -2px 0 #ff79c6;
-    letter-spacing: 2px;
+    font-family: 'Courier New', monospace; font-size: 2rem;
+    color: #39ff14; text-shadow: 3px 3px 0 #00ff7f, -2px -2px 0 #ff79c6; letter-spacing: 2px;
 }
-
-body.theme-pixel .logo-sub {
-    color: #50fa7b;
-}
+body.theme-pixel .logo-sub { color: #50fa7b; }
 
 body.theme-pixel .navbar {
-    background: #000;
-    border-bottom: 3px solid #39ff14;
-    box-shadow: none;
+    background: #000; border-bottom: 3px solid #39ff14; box-shadow: none;
 }
 
 body.theme-pixel .nav-container li a {
-    color: #50fa7b;
-    padding: 0.8rem 1rem;
-    border: 2px solid transparent;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
+    color: #50fa7b; padding: 0.8rem 1rem; border: 2px solid transparent;
+    text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;
 }
 
 body.theme-pixel .nav-container li a:hover {
-    background: #39ff14;
-    color: #000;
-    border-style: solid;
-    border-width: 2px;
+    background: #39ff14; color: #000; border-style: solid; border-width: 2px;
     border-color: #50fa7b #003b00 #003b00 #50fa7b;
 }
 
 body.theme-pixel .nav-container li a.active {
-    background: #39ff14;
-    color: #000;
-    border: 2px solid;
+    background: #39ff14; color: #000; border: 2px solid;
     border-color: #50fa7b #003b00 #003b00 #50fa7b;
 }
 
+/* 通用卡片/容器 - 像素风 */
 body.theme-pixel .post-card,
 body.theme-pixel .sidebar-widget,
 body.theme-pixel .memory-card,
 body.theme-pixel .rumor-card,
-body.theme-pixel .video-card {
-    background: #282a36;
-    border: 4px solid #39ff14;
-    box-shadow:
-        8px 8px 0 rgba(57, 255, 20, 0.2),
-        inset 0 0 0 2px #000;
+body.theme-pixel .video-card,
+body.theme-pixel .about-card,
+body.theme-pixel .welcome-banner,
+body.theme-pixel .game-container,
+body.theme-pixel .score-board,
+body.theme-pixel .game-controls,
+body.theme-pixel .game-message,
+body.theme-pixel .local-form,
+body.theme-pixel .local-messages,
+body.theme-pixel .memory-intro,
+body.theme-pixel .gallery-info,
+body.theme-pixel .guardian-box {
+    background: #282a36; border: 4px solid #39ff14;
+    box-shadow: 8px 8px 0 rgba(57, 255, 20, 0.2), inset 0 0 0 2px #000;
 }
 
-body.theme-pixel .post-card:hover {
+body.theme-pixel .post-card:hover,
+body.theme-pixel .video-card:hover,
+body.theme-pixel .memory-card:hover {
     transform: translate(-4px, -4px);
-    box-shadow:
-        12px 12px 0 rgba(57, 255, 20, 0.3),
-        inset 0 0 0 2px #000;
+    box-shadow: 12px 12px 0 rgba(57, 255, 20, 0.3), inset 0 0 0 2px #000;
     border-color: #ff79c6;
 }
 
 body.theme-pixel .post-thumbnail,
 body.theme-pixel .xiaolu-avatar,
 body.theme-pixel .profile-avatar {
-    background: #000;
-    border: 4px solid #39ff14;
-    box-shadow: 4px 4px 0 rgba(57, 255, 20, 0.3);
+    background: #000; border: 4px solid #39ff14; box-shadow: 4px 4px 0 rgba(57, 255, 20, 0.3);
 }
 
 body.theme-pixel .post-title,
 body.theme-pixel .widget-title,
 body.theme-pixel .welcome-text h2,
 body.theme-pixel .profile-name,
-body.theme-pixel .memory-title {
-    color: #39ff14;
-    text-shadow: 2px 2px 0 #003b00;
-    letter-spacing: 1px;
+body.theme-pixel .memory-title,
+body.theme-pixel .video-title,
+body.theme-pixel .info-label {
+    color: #39ff14; text-shadow: 2px 2px 0 #003b00; letter-spacing: 1px;
 }
 
-body.theme-pixel .widget-title {
-    border-bottom: 3px dashed #39ff14;
-}
+body.theme-pixel .widget-title { border-bottom: 3px dashed #39ff14; }
 
 body.theme-pixel .post-date,
 body.theme-pixel .tag,
 body.theme-pixel .page-link,
-body.theme-pixel .memory-date {
-    background: #000;
-    color: #39ff14;
-    border: 2px solid #39ff14;
+body.theme-pixel .memory-date,
+body.theme-pixel .tag-item,
+body.theme-pixel .refresh-btn,
+body.theme-pixel .submit-btn,
+body.theme-pixel .game-btn,
+body.theme-pixel .mobile-btn {
+    background: #000; color: #39ff14; border: 2px solid #39ff14;
 }
 
 body.theme-pixel .post-excerpt,
 body.theme-pixel .profile-bio,
 body.theme-pixel .memory-content,
-body.theme-pixel .rumor-content {
+body.theme-pixel .rumor-content,
+body.theme-pixel .welcome-text p,
+body.theme-pixel .info-value,
+body.theme-pixel .local-message-content,
+body.theme-pixel .video-description,
+body.theme-pixel .sidebar-widget p {
     color: #b0b0b0;
 }
 
 body.theme-pixel .footer {
-    background: #000;
-    border-top: 4px solid #39ff14;
-    color: #50fa7b;
+    background: #000; border-top: 4px solid #39ff14; color: #50fa7b;
 }
-
-body.theme-pixel .footer-section h4 {
-    color: #39ff14;
-}
+body.theme-pixel .footer-section h4 { color: #39ff14; }
 
 body.theme-pixel .leaf {
-    font-size: 16px;
-    opacity: 0.3;
-    color: #39ff14;
-    animation-duration: 15s;
-}
-
-body.theme-pixel .welcome-banner {
-    background: #282a36;
-    border: 4px solid #39ff14;
-    box-shadow: 8px 8px 0 rgba(57, 255, 20, 0.2);
-}
-
-body.theme-pixel .page-link:hover,
-body.theme-pixel .page-link.active {
-    background: #39ff14;
-    color: #000;
+    font-size: 16px; opacity: 0.3; color: #39ff14; animation-duration: 15s;
 }
 
 body.theme-pixel .tag-item:hover,
 body.theme-pixel .submit-btn,
-body.theme-pixel .refresh-btn {
-    background: #39ff14;
-    color: #000;
-    border: 2px solid #50fa7b;
-    text-shadow: none;
-    box-shadow: 4px 4px 0 rgba(57, 255, 20, 0.3);
+body.theme-pixel .refresh-btn,
+body.theme-pixel .page-link:hover,
+body.theme-pixel .page-link.active,
+body.theme-pixel .game-btn:hover {
+    background: #39ff14; color: #000; border: 2px solid #50fa7b;
+    text-shadow: none; box-shadow: 4px 4px 0 rgba(57, 255, 20, 0.3);
 }
 
-/* 主题切换按钮 */
+body.theme-pixel .local-message-item { background: #1a1a2e; border: 2px solid #39ff14; }
+body.theme-pixel input, body.theme-pixel textarea { background: #000; border: 2px solid #39ff14; color: #39ff14; }
+body.theme-pixel .code-template { background: #000; border: 2px solid #39ff14; color: #39ff14; }
+body.theme-pixel .key {
+    background: #000; border: 2px solid #39ff14; color: #39ff14;
+    box-shadow: 2px 2px 0 rgba(57, 255, 20, 0.3);
+}
+body.theme-pixel .gallery-grid img { border: 4px solid #39ff14; box-shadow: 4px 4px 0 rgba(57, 255, 20, 0.3); }
+body.theme-pixel .video-embed iframe { border: 4px solid #39ff14; }
+body.theme-pixel .latest-posts a { color: #50fa7b; }
+body.theme-pixel .latest-posts a:hover { color: #ff79c6; }
+body.theme-pixel .latest-date { color: #39ff14; }
+body.theme-pixel .birthday-badge { background: #000; border: 2px solid #39ff14; color: #39ff14; }
+body.theme-pixel .random-image { border: 4px solid #39ff14; }
+body.theme-pixel .image-info { background: #000; border: 2px solid #39ff14; color: #50fa7b; }
+
+
+/* ========================================
+   主题切换按钮
+   ======================================== */
 .theme-switcher {
     position: fixed;
     top: 1rem;
@@ -613,35 +828,18 @@ body.theme-pixel .refresh-btn {
     position: relative;
 }
 
-.theme-btn:hover {
-    transform: scale(1.2);
-}
+.theme-btn:hover { transform: scale(1.2); }
 
 .theme-btn.active {
     border-color: #333;
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px #333;
 }
 
-.theme-btn[data-theme="green"] {
-    background: linear-gradient(135deg, #90EE90, #228B22);
-}
-
-.theme-btn[data-theme="vaporwave"] {
-    background: linear-gradient(135deg, #ff6ec7, #7b68ee);
-}
-
-.theme-btn[data-theme="frutiger"] {
-    background: linear-gradient(135deg, #87CEEB, #98FB98);
-}
-
-.theme-btn[data-theme="win98"] {
-    background: linear-gradient(135deg, #c0c0c0, #000080);
-}
-
-.theme-btn[data-theme="pixel"] {
-    background: #282a36;
-    border: 3px dashed #39ff14;
-}
+.theme-btn[data-theme="green"] { background: linear-gradient(135deg, #90EE90, #228B22); }
+.theme-btn[data-theme="vaporwave"] { background: linear-gradient(135deg, #ff6ec7, #7b68ee); }
+.theme-btn[data-theme="frutiger"] { background: linear-gradient(135deg, #87CEEB, #98FB98); }
+.theme-btn[data-theme="win98"] { background: linear-gradient(135deg, #c0c0c0, #000080); }
+.theme-btn[data-theme="pixel"] { background: #282a36; border: 3px dashed #39ff14; }
 
 @media (max-width: 768px) {
     .theme-switcher {

@@ -1,13 +1,23 @@
-// 小绿博客脚本 - 飘落叶子动画
+// 小绿博客脚本 - 飘落emoji动画（根据主题变化）
 document.addEventListener('DOMContentLoaded', function() {
     const leavesContainer = document.getElementById('leaves');
-    const leafEmojis = ['🍃', '🌿', '🍀', '🌱', '☘️'];
 
-    // 创建飘落的叶子
+    // 各主题对应的emoji集合
+    const THEME_EMOJIS = {
+        green: ['🍃', '🌿', '🍀', '🌱', '☘️', '💚'],
+        vaporwave: ['🌴', '🌆', '🌸', '💜', '💎', '🔮', '🌺', '☯️', '💫'],
+        frutiger: ['💧', '🫧', '🌿', '🦋', '🐚', '🌈', '☁️', '🌊', '🍃'],
+        win98: ['💾', '🖱️', '⌨️', '🖥️', '📁', '🗂️', '⏰', '💿', '📎'],
+        pixel: ['🎮', '🕹️', '👾', '🧩', '⭐', '💚', '🔫', '🍄', '💎']
+    };
+
+    let currentEmojis = THEME_EMOJIS['green'];
+
+    // 创建飘落的元素
     function createLeaf() {
         const leaf = document.createElement('div');
         leaf.className = 'leaf';
-        leaf.textContent = leafEmojis[Math.floor(Math.random() * leafEmojis.length)];
+        leaf.textContent = currentEmojis[Math.floor(Math.random() * currentEmojis.length)];
         leaf.style.left = Math.random() * 100 + 'vw';
         leaf.style.animationDuration = (Math.random() * 5 + 5) + 's';
         leaf.style.fontSize = (Math.random() * 10 + 15) + 'px';
@@ -19,7 +29,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 10000);
     }
 
-    // 定期生成叶子
+    // 切换主题时更新emoji并清除旧元素
+    function updateEmojis(themeId) {
+        currentEmojis = THEME_EMOJIS[themeId] || THEME_EMOJIS['green'];
+        // 清除已存在的飘落元素
+        leavesContainer.querySelectorAll('.leaf').forEach(el => el.remove());
+    }
+
+    // 定期生成
     setInterval(createLeaf, 800);
 
     // 初始生成几个
@@ -197,6 +214,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.theme-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.theme === (themeId || 'green'));
         });
+        // 更新飘落emoji
+        updateEmojis(themeId || 'green');
     }
 
     // 绑定按钮点击
