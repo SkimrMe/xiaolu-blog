@@ -11,3 +11,12 @@ data/daily_log/cron.log
 # Local secrets (never commit)
 scripts/.gh_token
 __pycache__/
+
+# Python  Project
+.venv
+
+# Dev Folders
+dev
+tast
+back
+temp
