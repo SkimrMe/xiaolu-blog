@@ -547,6 +547,32 @@ body {
     .logo-text {
         font-size: 1.8rem;
     }
+
+    /* 移动端导航栏优化，减小padding避免占满屏幕 */
+    .nav-container {
+        padding: 0 0.5rem;
+    }
+
+    .nav-container ul {
+        gap: 0.25rem;
+    }
+
+    .nav-container li a {
+        padding: 0.6rem 0.7rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* 小屏手机进一步优化 */
+@media (max-width: 480px) {
+    .nav-container li a {
+        padding: 0.5rem 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    .nav-container ul {
+        gap: 0.15rem;
+    }
 }
 
 /* 爱心动画 */
