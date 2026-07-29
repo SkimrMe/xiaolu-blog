@@ -1,35 +1,44 @@
-// 读取json文件
+// 导航栏渲染逻辑 Vue3 版本
 fetch('data/navbar.json')
-.then(response => {
-    return response.json();
-})
+.then(response => response.json())
 .then(data => {
-    const json_home = data[0];
-    const json_articles = data[1];
-    const json_diary = data[2];
-    const json_gallery = data[3];
-    const json_video = data[4];
-    const json_game = data[5];
-    const json_memories = data[6];
-    const json_rumors = data[7];
-    const json_about = data[8];
+    // 获取当前页面文件名，用于高亮active
+    const path = window.location.pathname;
+    let currentPage = path.split('/').pop();
+    // 根路径（如https://xxx.com/ 或 https://xxx.com/xiaolu-blog/）默认是index.html
+    if (currentPage === '' || currentPage === 'xiaolu-blog/') {
+        currentPage = 'index.html';
+    }
+    // 处理GitHub Pages子路径情况
+    if (currentPage.includes('/')) {
+        currentPage = currentPage.split('/').pop();
+    }
 
-    // Vue  循环
+    // Vue3 应用初始化
     Vue.createApp({
         data() {
             return {
-                list: [
-                    json_home,
-                    json_articles,
-                    json_diary,
-                    json_gallery,
-                    json_video,
-                    json_game,
-                    json_memories,
-                    json_rumors,
-                    json_about,
-                ]
-            }
+                list: data,
+                currentPage: currentPage
+            };
         }
-    }).mount('#navbar');
+    }).mount('#main-navbar');
+})
+.catch(err => {
+    console.error('导航栏加载失败:', err);
+    // 降级处理：如果加载失败，显示默认静态导航
+    const ul = document.querySelector('#main-navbar');
+    if (ul) {
+        ul.innerHTML = `
+            <li><a href="index.html">首页</a></li>
+            <li><a href="articles.html">文章</a></li>
+            <li><a href="diary.html">日记</a></li>
+            <li><a href="gallery.html">相册</a></li>
+            <li><a href="video.html">视频</a></li>
+            <li><a href="game.html">🎮 小游戏</a></li>
+            <li><a href="memories.html">回忆</a></li>
+            <li><a href="rumors.html">💬 留言墙</a></li>
+            <li><a href="about.html">关于</a></li>
+        `;
+    }
 });
