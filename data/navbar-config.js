@@ -1,0 +1,48 @@
+// 导航栏配置文件，直接引入避免file协议下fetch跨域问题
+window.NAV_ITEMS = [
+    {
+        "id": 1,
+        "title": "首页",
+        "url": "index.html"
+    },
+    {
+        "id": 2,
+        "title": "文章",
+        "url": "articles.html"
+    },
+    {
+        "id": 3,
+        "title": "日记",
+        "url": "diary.html"
+    },
+    {
+        "id": 4,
+        "title": "相册",
+        "url": "gallery.html"
+    },
+    {
+        "id": 5,
+        "title": "视频",
+        "url": "video.html"
+    },
+    {
+        "id": 6,
+        "title": "🎮 小游戏",
+        "url": "game.html"
+    },
+    {
+        "id": 7,
+        "title": "回忆",
+        "url": "memories.html"
+    },
+    {
+        "id": 8,
+        "title": "💬 留言墙",
+        "url": "rumors.html"
+    },
+    {
+        "id": 9,
+        "title": "关于",
+        "url": "about.html"
+    }
+];

@@ -1,34 +1,18 @@
-// 读取json文件
-fetch('../data/navbar.json')
-.then(response => {
-    return response.json();
-})
-.then(data => {
-    const json_home = data[0];
-    const json_articles = data[1];
-    const json_diary = data[2];
-    const json_gallery = data[3];
-    const json_video = data[4];
-    const json_game = data[5];
-    const json_memories = data[6];
-    const json_rumors = data[7];
-    const json_about = data[8];
+// 导航栏渲染逻辑 Vue3 版本
+// 获取当前页面文件名，用于高亮active
+const getCurrentPage = () => {
+    const path = window.location.pathname;
+    const page = path.split('/').pop();
+    // 根路径（如https://xxx.com/）默认是index.html
+    return page === '' ? 'index.html' : page;
+};
 
-    // Vue 循环
-    new Vue({
-        el: '#navbar',
-        data: {
-            lists: [
-                json_home,
-                json_articles,
-                json_diary,
-                json_gallery,
-                json_video,
-                json_game,
-                json_memories,
-                json_rumors,
-                json_about
-            ]
-        }
-    })
-});
+// Vue3 应用初始化
+Vue.createApp({
+    data() {
+        return {
+            navItems: window.NAV_ITEMS,
+            currentPage: getCurrentPage()
+        };
+    }
+}).mount('#main-navbar');
