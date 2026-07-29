@@ -21,11 +21,11 @@
         </div>
     </header>
 
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="nav-container">
             <ul>
-                <li id="navbar" v-for="list in lists">
-                    <a href="{{ list.url }}">{{ list.title }}</a>
+                <li v-for="(item, index) in list" :key="index">
+                    <a :href="item.url">{{ item.title }}</a>
                 </li>
             </ul>
         </div>
@@ -221,7 +221,7 @@
         }
     </script>
 
-    <script src="js/vue.min.js">
+    <script src="js/vue-v3.5.40.js">
         // vue.min.js
     </script>
     <script src="js/navbar.js">

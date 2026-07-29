@@ -1,5 +1,5 @@
 // 读取json文件
-fetch('../data/navbar.json')
+fetch('data/navbar.json')
 .then(response => {
     return response.json();
 })
@@ -14,21 +14,22 @@ fetch('../data/navbar.json')
     const json_rumors = data[7];
     const json_about = data[8];
 
-    // Vue 循环
-    new Vue({
-        el: '#navbar',
-        data: {
-            lists: [
-                json_home,
-                json_articles,
-                json_diary,
-                json_gallery,
-                json_video,
-                json_game,
-                json_memories,
-                json_rumors,
-                json_about
-            ]
+    // Vue  循环
+    Vue.createApp({
+        data() {
+            return {
+                list: [
+                    json_home,
+                    json_articles,
+                    json_diary,
+                    json_gallery,
+                    json_video,
+                    json_game,
+                    json_memories,
+                    json_rumors,
+                    json_about,
+                ]
+            }
         }
-    })
+    }).mount('#navbar');
 });
