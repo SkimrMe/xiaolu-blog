@@ -17,6 +17,7 @@ __pycache__/
 
 # Dev Folders
 dev
-tast
+test
 back
+tmp
 temp
