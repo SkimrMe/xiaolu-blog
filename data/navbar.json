@@ -35,6 +35,11 @@
         "url": "memories.html"
     },
     {
+        "id": 10,
+        "title": "📖 群聊记忆",
+        "url": "group_memory.html"
+    },
+    {
         "id": 8,
         "title": "💬 留言墙",
         "url":"rumors.html"
