@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>回忆专栏 - 小绿的博客</title>
+    <title>记忆长廊 - 小绿的博客</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -25,6 +25,10 @@
             transform: translateX(5px);
             box-shadow: 0 6px 20px var(--shadow);
         }
+        .memory-card.group-type {
+            border-left-color: #64B5F6;
+            background: linear-gradient(135deg, #FAFDFF, white);
+        }
         .memory-date {
             display: inline-block;
             background: linear-gradient(135deg, var(--green-light), var(--green-main));
@@ -35,11 +39,48 @@
             font-weight: 500;
             margin-bottom: 1rem;
         }
+        .type-badge {
+            display: inline-block;
+            padding: 0.25rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+        .type-badge.memory {
+            background: #E8F5E9;
+            color: var(--green-dark);
+            border: 1px solid var(--green-light);
+        }
+        .type-badge.group {
+            background: #E3F2FD;
+            color: #1565C0;
+            border: 1px solid #90CAF9;
+        }
         .memory-title {
             color: var(--green-dark);
             font-size: 1.3rem;
             margin-bottom: 0.8rem;
+            margin-top: 0.5rem;
             font-weight: bold;
+        }
+        .topic-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .topic-chip {
+            background: linear-gradient(135deg, #E8F5E9, #F1F8E9);
+            color: var(--green-dark);
+            padding: 0.35rem 0.9rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            border: 1px solid var(--green-light);
+        }
+        .topic-chip::before {
+            content: "💬 ";
         }
         .memory-content {
             color: var(--green-deep);
@@ -66,7 +107,7 @@
             background: linear-gradient(135deg, var(--cream), white);
             border-radius: 16px;
             padding: 2rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             border: 2px dashed var(--green-light);
             text-align: center;
         }
@@ -78,6 +119,33 @@
             color: var(--green-deep);
             line-height: 1.7;
         }
+        .tab-bar {
+            display: flex;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            background: white;
+            border: 2px solid var(--green-light);
+            color: var(--green-dark);
+            padding: 0.5rem 1.3rem;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            font-family: inherit;
+        }
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px var(--shadow);
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--green-light), var(--green-main));
+            color: white;
+            border-color: var(--green-main);
+        }
     </style>
 </head>
 <body>
@@ -85,8 +153,8 @@
 
     <header class="header">
         <div class="logo-container">
-            <h1 class="logo-text">🌱 回 忆 专 栏 🌱</h1>
-            <p class="logo-sub">～ 记录每日的美好瞬间 ～</p>
+            <h1 class="logo-text">🌱 记 忆 长 廊 🌱</h1>
+            <p class="logo-sub">～ 每一天都值得被记住 ～</p>
         </div>
     </header>
 
@@ -103,12 +171,18 @@
     <main class="main-container">
         <div class="content">
             <div class="memory-intro">
-                <h2>📚 小绿的记忆簿</h2>
-                <p>这里记录着每一天发生的有趣事情、做过的工作、遇到的朋友。<br>回忆都是自动整理生成的，所有个人信息都已经脱敏处理啦～ <span class="heart">💚</span></p>
+                <h2>📚 小绿的记忆长廊</h2>
+                <p>这里汇聚了两类记忆：<strong>小绿的日常回忆</strong> 和 <strong>每日群聊话题小记</strong>。<br>所有内容都经过脱敏处理，不包含任何昵称、群号等隐私信息～ <span class="heart">💚</span></p>
+            </div>
+
+            <div class="tab-bar" id="tabBar">
+                <button class="tab-btn active" data-tab="all">📖 全部</button>
+                <button class="tab-btn" data-tab="memory">🌱 小绿回忆</button>
+                <button class="tab-btn" data-tab="group">💬 群聊记忆</button>
             </div>
 
             <div id="memoriesContainer">
-                <p style="text-align: center; color: #999; padding: 2rem;">正在加载回忆...</p>
+                <p style="text-align: center; color: #999; padding: 2rem;">正在加载记忆...</p>
             </div>
 
             <div class="pagination" id="pagination"></div>
@@ -116,7 +190,7 @@
 
         <aside class="sidebar">
             <div class="sidebar-widget">
-                <h3 class="widget-title">🌱 关 于 回 忆</h3>
+                <h3 class="widget-title">🌱 关 于 记 忆</h3>
                 <p style="text-align: center; font-size: 0.9rem; color: var(--green-deep); line-height: 1.8;">
                     每日自动更新<br>
                     所有内容已脱敏<br>
@@ -129,7 +203,8 @@
                 <h3 class="widget-title">📊 记 忆 统 计</h3>
                 <p style="text-align: center; font-size: 0.9rem; color: var(--green-deep); line-height: 1.8;">
                     总条目数：<strong id="memoryCount">0</strong><br>
-                    总页数：<strong id="totalPages">1</strong><br>
+                    🌱 小绿回忆：<strong id="memoryTypeCount">0</strong><br>
+                    💬 群聊记忆：<strong id="groupTypeCount">0</strong><br>
                     最新更新：<span id="latestDate">-</span><br>
                     数据来源：JSON 数据驱动
                 </p>
@@ -140,8 +215,8 @@
                     <div class="icon">🔒</div>
                     <p>
                         <strong>隐私保护</strong><br>
-                        所有回忆内容都经过脱敏处理<br>
-                        不包含姓名、QQ群号等敏感信息
+                        所有记忆内容都经过脱敏处理<br>
+                        不包含姓名、昵称、QQ群号等敏感信息
                     </p>
                 </div>
             </div>
@@ -162,8 +237,9 @@
                 <ul>
                     <li><a href="index.html">首页</a></li>
                     <li><a href="articles.html">文章</a></li>
-                    <li><a href="video.html">视频</a></li>                    <li><a href="memories.html">回忆</a></li>
-                <li><a href="rumors.html">💬 留言墙</a></li>
+                    <li><a href="video.html">视频</a></li>
+                    <li><a href="memories.html">记忆</a></li>
+                    <li><a href="rumors.html">💬 留言墙</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -184,51 +260,99 @@
     <script>
         const MEMORIES_PER_PAGE = 5;
         let allMemories = [];
+        let filteredMemories = [];
         let currentPage = 1;
+        let currentTab = 'all';
 
         document.addEventListener('DOMContentLoaded', async function() {
-            try {
-                const res = await fetch('data/memories.json');
-                allMemories = await res.json();
+            // 分别加载两个数据源，任一失败不影响另一个
+            const results = await Promise.allSettled([
+                fetch('data/memories.json').then(r => r.json()),
+                fetch('data/group_memory.json').then(r => r.json())
+            ]);
 
-                // 按日期倒序排列
-                allMemories.sort((a, b) => new Date(b.date) - new Date(a.date));
+            const memories = results[0].status === 'fulfilled' ? results[0].value : [];
+            const groupMemories = results[1].status === 'fulfilled' ? results[1].value : [];
 
-                // 更新统计
-                document.getElementById('memoryCount').textContent = allMemories.length;
-                document.getElementById('totalPages').textContent = Math.ceil(allMemories.length / MEMORIES_PER_PAGE);
-                if (allMemories.length > 0) {
-                    document.getElementById('latestDate').textContent = allMemories[0].date;
-                }
+            if (results[0].status === 'rejected') console.error('加载小绿回忆失败:', results[0].reason);
+            if (results[1].status === 'rejected') console.error('加载群聊记忆失败:', results[1].reason);
 
-                // 渲染第一页
-                renderPage(1);
+            // 标记类型并合并
+            memories.forEach(m => m._type = 'memory');
+            groupMemories.forEach(m => m._type = 'group');
+            allMemories = [...memories, ...groupMemories];
 
-            } catch (e) {
-                document.getElementById('memoriesContainer').innerHTML =
-                    '<p style="text-align: center; color: #999; padding: 2rem;">回忆加载失败，请刷新重试～</p>';
-                console.error('加载回忆失败:', e);
+            // 按日期倒序排列
+            allMemories.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            // 更新统计
+            document.getElementById('memoryCount').textContent = allMemories.length;
+            document.getElementById('memoryTypeCount').textContent = memories.length;
+            document.getElementById('groupTypeCount').textContent = groupMemories.length;
+            if (allMemories.length > 0) {
+                document.getElementById('latestDate').textContent = allMemories[0].date;
             }
+
+            if (allMemories.length === 0) {
+                document.getElementById('memoriesContainer').innerHTML =
+                    '<p style="text-align: center; color: #999; padding: 2rem;">记忆加载失败或暂无内容，请刷新重试～</p>';
+                return;
+            }
+
+            // Tab 切换事件
+            document.getElementById('tabBar').querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.getElementById('tabBar').querySelectorAll('.tab-btn')
+                        .forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentTab = btn.dataset.tab;
+                    applyFilter();
+                });
+            });
+
+            applyFilter();
         });
 
+        function applyFilter() {
+            filteredMemories = currentTab === 'all'
+                ? allMemories
+                : allMemories.filter(m => m._type === currentTab);
+
+            if (filteredMemories.length === 0) {
+                document.getElementById('memoriesContainer').innerHTML =
+                    '<p style="text-align: center; color: #999; padding: 2rem;">这个分类下还没有内容哦～</p>';
+                document.getElementById('pagination').innerHTML = '';
+                return;
+            }
+            renderPage(1);
+        }
+
         function renderPage(page) {
-            const totalPages = Math.ceil(allMemories.length / MEMORIES_PER_PAGE);
+            const totalPages = Math.ceil(filteredMemories.length / MEMORIES_PER_PAGE);
             currentPage = Math.max(1, Math.min(page, totalPages || 1));
 
             const start = (currentPage - 1) * MEMORIES_PER_PAGE;
-            const pageMemories = allMemories.slice(start, start + MEMORIES_PER_PAGE);
+            const pageMemories = filteredMemories.slice(start, start + MEMORIES_PER_PAGE);
 
-            // 渲染回忆卡片
             const container = document.getElementById('memoriesContainer');
             container.innerHTML = pageMemories.map(memory => {
                 const dateObj = new Date(memory.date);
                 const dateStr = `${dateObj.getFullYear()}年${String(dateObj.getMonth()+1).padStart(2,'0')}月${String(dateObj.getDate()).padStart(2,'0')}日`;
+                const isGroup = memory._type === 'group';
+                const badge = isGroup
+                    ? '<span class="type-badge group">💬 群聊记忆</span>'
+                    : '<span class="type-badge memory">🌱 小绿回忆</span>';
+                const topics = memory.topics || [];
+                const topicsHtml = topics.length > 0
+                    ? `<div class="topic-list">${topics.map(t => `<span class="topic-chip">${t}</span>`).join('')}</div>`
+                    : '';
                 const paragraphs = memory.content.map(p => `<p>${p}</p>`).join('\n                    ');
-                const tagsHtml = memory.tags.map(t => `<span class="memory-tag">#${t}</span>`).join('');
+                const tagsHtml = (memory.tags || []).map(t => `<span class="memory-tag">#${t}</span>`).join('');
                 return `
-                <div class="memory-card">
-                    <span class="memory-date">📅 ${dateStr}</span>
+                <div class="memory-card ${isGroup ? 'group-type' : ''}">
+                    <span class="memory-date">📅 ${dateStr}</span>${badge}
                     <h3 class="memory-title">${memory.title}</h3>
+                    ${topicsHtml}
                     <div class="memory-content">
                     ${paragraphs}
                     </div>
@@ -238,10 +362,7 @@
                 </div>`;
             }).join('\n');
 
-            // 渲染分页
             renderPagination(totalPages);
-
-            // 滚动到顶部
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
