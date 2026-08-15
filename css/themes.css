@@ -226,6 +226,12 @@ body.theme-vaporwave .game-btn:hover {
     box-shadow: 0 0 15px rgba(255, 110, 199, 0.5);
 }
 
+body.theme-vaporwave .tag-item.active {
+    background: #ff6ec7;
+    color: #1a0a2e;
+    box-shadow: 0 0 15px rgba(255, 110, 199, 0.5);
+}
+
 body.theme-vaporwave .latest-posts a { color: #d4a5ff; }
 body.theme-vaporwave .latest-posts a:hover { color: #00f5ff; text-shadow: 0 0 8px #00f5ff; }
 body.theme-vaporwave .latest-date { color: #ff6ec7; }
@@ -416,6 +422,15 @@ body.theme-frutiger .image-info {
     border: 1px solid rgba(78, 205, 196, 0.3);
     color: #2E8B8B;
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+}
+
+/* frutiger 选中态：需高于上方基础规则的优先级，沿用主题的青绿色系 */
+body.theme-frutiger .tag-item.active,
+body.theme-frutiger .page-link.active {
+    background: linear-gradient(180deg, #4ECDC4 0%, #2E8B8B 100%);
+    border-color: rgba(46, 139, 139, 0.6);
+    color: #fff;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
 }
 
 body.theme-frutiger .footer {
@@ -632,6 +647,15 @@ body.theme-win98 .tag-item:hover {
     background: #000080; color: #fff; border: 2px outset #c0c0c0;
 }
 
+body.theme-win98 .tag-item.active {
+    background: #000080; color: #fff; border: 2px outset #c0c0c0;
+}
+
+/* 记忆长廊 Tab 选中态在 win98 下的适配（默认是绿色渐变，改为平面藏蓝） */
+body.theme-win98 .tab-btn.active {
+    background: #000080; color: #fff; border: 2px outset #c0c0c0; box-shadow: none;
+}
+
 body.theme-win98 .footer {
     background: #c0c0c0; color: #000; border-top: 2px solid #fff; padding: 0.5rem 1rem; margin-top: 1rem;
 }
@@ -826,6 +850,16 @@ body.theme-pixel .page-link.active,
 body.theme-pixel .game-btn:hover {
     background: #39ff14; color: #000; border: 2px solid #50fa7b;
     text-shadow: none; box-shadow: 4px 4px 0 rgba(57, 255, 20, 0.3);
+}
+
+body.theme-pixel .tag-item.active {
+    background: #39ff14; color: #000; border: 2px solid #50fa7b;
+    text-shadow: none; box-shadow: 4px 4px 0 rgba(57, 255, 20, 0.3);
+}
+
+/* 记忆长廊 Tab 选中态在像素主题下的适配（荧光绿底改黑字，避免白字看不清） */
+body.theme-pixel .tab-btn.active {
+    color: #000; text-shadow: none;
 }
 
 body.theme-pixel .local-message-item { background: #1a1a2e; border: 2px solid #39ff14; }
