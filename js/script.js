@@ -1,49 +1,7 @@
-// 小绿博客脚本 - 飘落emoji动画（根据主题变化）
+// 小绿博客脚本 - 通用交互（平滑滚动、随机小绿图片）
+// 注意：飘落emoji动画与主题切换逻辑已拆分到 js/theme-manager.js，
+//       各主题的表情定义在 js/themes/<主题名>.js，按页面引入即可。
 document.addEventListener('DOMContentLoaded', function() {
-    const leavesContainer = document.getElementById('leaves');
-
-    // 各主题对应的emoji集合
-    const THEME_EMOJIS = {
-        green: ['🍃', '🌿', '🍀', '🌱', '☘️', '💚'],
-        vaporwave: ['🌴', '🌆', '🌸', '💜', '💎', '🔮', '🌺', '☯️', '💫'],
-        frutiger: ['💧', '🫧', '🌿', '🦋', '🐚', '🌈', '☁️', '🌊', '🍃'],
-        win98: ['💾', '🖱️', '⌨️', '🖥️', '📁', '🗂️', '⏰', '💿', '📎'],
-        pixel: ['🎮', '🕹️', '👾', '🧩', '⭐', '💚', '🔫', '🍄', '💎']
-    };
-
-    let currentEmojis = THEME_EMOJIS['green'];
-
-    // 创建飘落的元素
-    function createLeaf() {
-        const leaf = document.createElement('div');
-        leaf.className = 'leaf';
-        leaf.textContent = currentEmojis[Math.floor(Math.random() * currentEmojis.length)];
-        leaf.style.left = Math.random() * 100 + 'vw';
-        leaf.style.animationDuration = (Math.random() * 5 + 5) + 's';
-        leaf.style.fontSize = (Math.random() * 10 + 15) + 'px';
-        leavesContainer.appendChild(leaf);
-
-        // 动画结束后移除
-        setTimeout(() => {
-            leaf.remove();
-        }, 10000);
-    }
-
-    // 切换主题时更新emoji并清除旧元素
-    function updateEmojis(themeId) {
-        currentEmojis = THEME_EMOJIS[themeId] || THEME_EMOJIS['green'];
-        // 清除已存在的飘落元素
-        leavesContainer.querySelectorAll('.leaf').forEach(el => el.remove());
-    }
-
-    // 定期生成
-    setInterval(createLeaf, 800);
-
-    // 初始生成几个
-    for (let i = 0; i < 5; i++) {
-        setTimeout(createLeaf, i * 200);
-    }
-
     // 带锚点的链接平滑滚动（页面内跳转使用）
     document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -185,47 +143,4 @@ document.addEventListener('DOMContentLoaded', function() {
         randomImageEl.style.cursor = 'pointer';
     }
 
-    // ========== 主题切换功能 ==========
-    const THEMES = [
-        { id: 'green', name: '经典绿', icon: '🌱' },
-        { id: 'vaporwave', name: '蒸汽波', icon: '💜' },
-        { id: 'frutiger', name: 'Frutiger Aero', icon: '🪟' },
-        { id: 'win98', name: 'Windows 98', icon: '💾' },
-        { id: 'pixel', name: '像素风', icon: '👾' }
-    ];
-
-    // 创建主题切换器
-    const switcher = document.createElement('div');
-    switcher.className = 'theme-switcher';
-    switcher.innerHTML = THEMES.map(t =>
-        `<button class="theme-btn" data-theme="${t.id}" title="${t.name}"></button>`
-    ).join('');
-    document.body.appendChild(switcher);
-
-    // 切换主题
-    function setTheme(themeId) {
-        // 移除所有主题类
-        document.body.classList.remove('theme-vaporwave', 'theme-frutiger', 'theme-win98', 'theme-pixel');
-        // 添加选中主题类（green是默认，不需要class）
-        if (themeId && themeId !== 'green') {
-            document.body.classList.add(`theme-${themeId}`);
-        }
-        // 保存到localStorage
-        localStorage.setItem('blog-theme', themeId || 'green');
-        // 更新按钮状态
-        document.querySelectorAll('.theme-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.theme === (themeId || 'green'));
-        });
-        // 更新飘落emoji
-        updateEmojis(themeId || 'green');
-    }
-
-    // 绑定按钮点击
-    switcher.querySelectorAll('.theme-btn').forEach(btn => {
-        btn.addEventListener('click', () => setTheme(btn.dataset.theme));
-    });
-
-    // 加载保存的主题
-    const savedTheme = localStorage.getItem('blog-theme') || 'green';
-    setTheme(savedTheme);
 });

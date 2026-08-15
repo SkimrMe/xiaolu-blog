@@ -14,6 +14,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* 移动端点按元素时不再闪半透明白色高亮（避免"点击变白"的错觉） */
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -409,6 +411,12 @@ body {
     background: var(--green-main);
     color: white;
     transform: scale(1.05);
+}
+
+/* 标签选中态（点击后保持），深底主题在 themes.css 中另有适配 */
+.tag-item.active {
+    background: var(--green-main);
+    color: white;
 }
 
 /* 绿坝护航提示 */

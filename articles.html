@@ -106,6 +106,12 @@
         </div>
     </footer>
 
+    <script src="js/themes/green.js"></script>
+    <script src="js/themes/vaporwave.js"></script>
+    <script src="js/themes/frutiger.js"></script>
+    <script src="js/themes/win98.js"></script>
+    <script src="js/themes/pixel.js"></script>
+    <script src="js/theme-manager.js"></script>
     <script src="js/script.js"></script>
     <script>
         const ITEMS_PER_PAGE = 6;
@@ -148,7 +154,7 @@
                     `<a href="#" class="tag-item" data-tag="${tag}">${tag} (${tagCount[tag]})</a>`
                 ).join('');
 
-            // 标签点击事件
+            // 标签点击事件（选中态用 .active class，样式由 css/style.css 与 css/themes.css 按主题分别定义）
             tagCloud.querySelectorAll('.tag-item').forEach(el => {
                 el.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -156,11 +162,12 @@
                     currentPage = 1;
                     renderPage(1);
                     // 高亮当前标签
-                    tagCloud.querySelectorAll('.tag-item').forEach(t => t.style.background = '');
-                    el.style.background = 'var(--green-main)';
-                    el.style.color = 'white';
+                    tagCloud.querySelectorAll('.tag-item').forEach(t => t.classList.remove('active'));
+                    el.classList.add('active');
                 });
             });
+            // 初始高亮「全部」
+            tagCloud.querySelector('.tag-item[data-tag=""]')?.classList.add('active');
         }
 
         function getFilteredArticles() {
