@@ -203,6 +203,12 @@
             margin-top: 0.8rem;
             line-height: 1.6;
         }
+        .char-counter {
+            float: right;
+            font-size: 0.8rem;
+            font-weight: normal;
+            color: #81C784;
+        }
         .local-messages {
             margin: 1.5rem 0;
         }
@@ -258,26 +264,26 @@
         <div class="content">
             <div class="rumor-intro">
                 <h2>🌿 过 路 留 言 墙</h2>
-                <p>不管是日常吐槽、心情感悟、还是想说的悄悄话，都可以在这里留下！<br>支持本地快速留言，也可以提交PR永久公开显示哦～ <span class="heart">💚</span></p>
+                <p>不管是日常吐槽、心情感悟、还是想说的悄悄话，都可以在这里留下！<br>快速留言即时显示，也可以提交PR永久公开收录哦～ <span class="heart">💚</span></p>
             </div>
 
             <div class="local-form">
-                <h3>✍️ 快速留言（本地保存）</h3>
+                <h3>✍️ 快速留言（在线留言板）</h3>
                 <div class="form-group">
                     <label for="localName">你的昵称</label>
-                    <input type="text" id="localName" placeholder="请输入昵称（可选，默认匿名）">
+                    <input type="text" id="localName" placeholder="请输入昵称（可选，默认匿名）" maxlength="20">
                 </div>
                 <div class="form-group">
-                    <label for="localMessage">留言内容</label>
-                    <textarea id="localMessage" placeholder="想留下什么话呢～" required></textarea>
+                    <label for="localMessage">留言内容 <span class="char-counter" id="charCounter">0/50</span></label>
+                    <textarea id="localMessage" placeholder="想留下什么话呢～（最多50字）" maxlength="50" required></textarea>
                 </div>
-                <button class="local-submit-btn" id="localSubmitBtn">💚 提交本地留言</button>
+                <button class="local-submit-btn" id="localSubmitBtn">💚 提交留言</button>
                 <div class="local-note">
-                    ℹ️ 本地留言保存在浏览器中，仅在当前设备可见；如需公开展示永久保存，请往下看PR提交方式～
+                    ℹ️ 快速留言提交后即时显示，所有访客可见；如需永久收录进下方公开留言墙，请往下看PR提交方式～
                 </div>
 
                 <div class="local-messages" id="localMessagesContainer">
-                    <!-- 本地留言由JS加载 -->
+                    <!-- 在线留言由JS加载 -->
                 </div>
             </div>
 
@@ -326,8 +332,8 @@
                 <h3 class="widget-title">💬 关 于 流 言</h3>
                 <p style="text-align: center; font-size: 0.9rem; color: var(--green-deep); line-height: 1.8;">
                     碎碎念 · 心情墙 · 吐槽板<br>
-                    通过 GitHub PR 提交<br>
-                    人工审核后展示<br>
+                    快速留言即时显示<br>
+                    PR 提交永久收录<br>
                     想说什么都可以 💚
                 </p>
             </div>
@@ -443,12 +449,13 @@
                 console.error('加载公开留言失败:', e);
             }
 
-            // 本地留言功能
-            const LOCAL_STORAGE_KEY = 'xiaolu_local_messages';
+            // 在线留言板功能（API: https://api.ww3.tw/greendam/rumors/）
+            const RUMOR_API = 'https://api.ww3.tw/greendam/rumors/';
             const localContainer = document.getElementById('localMessagesContainer');
             const localSubmitBtn = document.getElementById('localSubmitBtn');
             const localNameInput = document.getElementById('localName');
             const localMessageInput = document.getElementById('localMessage');
+            const charCounter = document.getElementById('charCounter');
 
             function escapeHtml(text) {
                 const div = document.createElement('div');
@@ -456,50 +463,76 @@
                 return div.innerHTML;
             }
 
-            function loadLocalMessages() {
-                const messages = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
-                if (messages.length === 0) {
-                    localContainer.innerHTML = '<p style="text-align: center; color: #888; font-size: 0.9rem;">还没有本地留言，快来抢沙发吧～</p>';
-                    return;
-                }
-                let html = '<h4 style="color: var(--green-dark); margin: 1rem 0 0.8rem 0; font-size: 0.95rem;">📬 本地留言（仅本设备可见）</h4>';
-                [...messages].reverse().forEach(msg => {
-                    html += `
-                        <div class="local-message-item">
-                            <div class="local-message-header">
-                                <span class="local-message-author">🌱 ${escapeHtml(msg.name)}</span>
-                                <span class="local-message-date">${msg.date}</span>
+            localMessageInput.addEventListener('input', function() {
+                charCounter.textContent = localMessageInput.value.length + '/50';
+            });
+
+            async function loadApiMessages() {
+                try {
+                    const res = await fetch(RUMOR_API);
+                    const messages = await res.json();
+                    if (!messages.length) {
+                        localContainer.innerHTML = '<p style="text-align: center; color: #888; font-size: 0.9rem;">还没有留言，快来抢沙发吧～</p>';
+                        return;
+                    }
+                    let html = '<h4 style="color: var(--green-dark); margin: 1rem 0 0.8rem 0; font-size: 0.95rem;">📬 最新留言（所有访客可见）</h4>';
+                    [...messages].reverse().forEach(msg => {
+                        html += `
+                            <div class="local-message-item">
+                                <div class="local-message-header">
+                                    <span class="local-message-author">🌱 ${escapeHtml(msg.name || '匿名')}</span>
+                                    <span class="local-message-date">${escapeHtml(msg.date || '')}</span>
+                                </div>
+                                <div>${escapeHtml(msg.content)}</div>
                             </div>
-                            <div>${escapeHtml(msg.message)}</div>
-                        </div>
-                    `;
-                });
-                localContainer.innerHTML = html;
+                        `;
+                    });
+                    localContainer.innerHTML = html;
+                } catch (e) {
+                    localContainer.innerHTML = '<p style="text-align: center; color: #999; font-size: 0.9rem;">留言加载失败，请刷新重试～</p>';
+                    console.error('加载在线留言失败:', e);
+                }
             }
 
-            localSubmitBtn.addEventListener('click', function() {
+            localSubmitBtn.addEventListener('click', async function() {
                 const name = localNameInput.value.trim() || '匿名';
-                const message = localMessageInput.value.trim();
-                if (!message) {
+                const content = localMessageInput.value.trim();
+                if (!content) {
                     alert('请输入留言内容哦～');
                     return;
                 }
+                if (content.length > 50) {
+                    alert('留言最多50个字哦～');
+                    return;
+                }
 
-                const messages = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
-                messages.push({
-                    name: name,
-                    message: message,
-                    date: new Date().toISOString().split('T')[0]
-                });
-                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(messages));
+                localSubmitBtn.disabled = true;
+                try {
+                    const res = await fetch(RUMOR_API, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            name: name,
+                            content: content,
+                            date: new Date().toISOString().split('T')[0]
+                        })
+                    });
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
 
-                localNameInput.value = '';
-                localMessageInput.value = '';
-                loadLocalMessages();
-                alert('本地留言提交成功！💚');
+                    localNameInput.value = '';
+                    localMessageInput.value = '';
+                    charCounter.textContent = '0/50';
+                    await loadApiMessages();
+                    alert('留言提交成功！💚');
+                } catch (e) {
+                    alert('留言提交失败，请稍后重试～');
+                    console.error('提交留言失败:', e);
+                } finally {
+                    localSubmitBtn.disabled = false;
+                }
             });
 
-            loadLocalMessages();
+            loadApiMessages();
         });
     </script>
 
