@@ -62,7 +62,7 @@
         <div class="nav-container">
             <ul id="main-navbar">
                 <li v-for="item in list" :key="item.id">
-                    <a :href="item.url" :class="{ active: item.url === currentPage }">{{ item.title }}</a>
+                    <a :href="item.url" :class="{ active: item.url === currentPage }" v-text ="item.title">加载中......</a>
                 </li>
             </ul>
         </div>
