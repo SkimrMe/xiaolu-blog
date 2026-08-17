@@ -32,7 +32,6 @@ fetch('data/navbar.json')
         ul.innerHTML = `
             <li><a href="index.html">首页</a></li>
             <li><a href="articles.html">文章</a></li>
-            <li><a href="diary.html">日记</a></li>
             <li><a href="gallery.html">相册</a></li>
             <li><a href="video.html">视频</a></li>
             <li><a href="game.html">🎮 小游戏</a></li>
