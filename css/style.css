@@ -717,3 +717,10 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.friend-link-icon-img {
+    width: 2rem;
+    height: 1.6rem;
+    object-fit: contain;
+    display: block;
+}
