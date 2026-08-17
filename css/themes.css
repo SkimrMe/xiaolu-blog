@@ -947,3 +947,64 @@ body.theme-pixel .github-link:hover {
         max-width: 180px;
     }
 }
+
+/* ===== 友情链接 - 各主题适配 ===== */
+/* 蒸汽波 */
+body.theme-vaporwave .friend-link-card {
+    background: rgba(123, 45, 158, 0.6);
+    border-color: rgba(255, 110, 199, 0.5);
+}
+body.theme-vaporwave .friend-link-name { color: #ff9ee6; }
+body.theme-vaporwave .friend-link-desc { color: #d896ff; }
+body.theme-vaporwave .friend-link-card:hover {
+    background: #ff6ec7;
+    box-shadow: 0 0 15px rgba(255, 110, 199, 0.5);
+}
+body.theme-vaporwave .friend-link-card:hover .friend-link-name,
+body.theme-vaporwave .friend-link-card:hover .friend-link-desc { color: #1a0a2e; }
+
+/* Frutiger Aero */
+body.theme-frutiger .friend-link-card {
+    background: linear-gradient(180deg, #f0f8ff 0%, #e0f0ff 100%);
+    border-color: rgba(78, 205, 196, 0.3);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+}
+body.theme-frutiger .friend-link-name { color: #2E8B8B; }
+body.theme-frutiger .friend-link-desc { color: #4a9e9e; }
+body.theme-frutiger .friend-link-card:hover {
+    border-color: #4ECDC4;
+    box-shadow: 0 4px 12px rgba(78, 205, 196, 0.35);
+}
+
+/* Win98 */
+body.theme-win98 .friend-link-card {
+    background: #c0c0c0;
+    border-top: 1px solid #fff; border-left: 1px solid #fff;
+    border-right: 1px solid #808080; border-bottom: 1px solid #808080;
+    border-radius: 0;
+}
+body.theme-win98 .friend-link-name { color: #000; }
+body.theme-win98 .friend-link-desc { color: #404040; }
+body.theme-win98 .friend-link-card:hover {
+    background: #000080;
+    border: 2px outset #c0c0c0;
+    box-shadow: none;
+}
+body.theme-win98 .friend-link-card:hover .friend-link-name,
+body.theme-win98 .friend-link-card:hover .friend-link-desc { color: #fff; }
+
+/* 像素风 */
+body.theme-pixel .friend-link-card {
+    background: #000;
+    border: 2px solid #39ff14;
+    border-radius: 0;
+}
+body.theme-pixel .friend-link-name { color: #39ff14; }
+body.theme-pixel .friend-link-desc { color: #50fa7b; }
+body.theme-pixel .friend-link-card:hover {
+    background: #39ff14;
+    border-color: #50fa7b;
+    box-shadow: none;
+}
+body.theme-pixel .friend-link-card:hover .friend-link-name,
+body.theme-pixel .friend-link-card:hover .friend-link-desc { color: #000; }
