@@ -10,11 +10,6 @@
         "url": "articles.html"
     },
     {
-        "id": 3,
-        "title": "日记",
-        "url": "diary.html"
-    },
-    {
         "id": 4,
         "title": "相册",
         "url": "gallery.html"
