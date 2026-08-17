@@ -224,6 +224,18 @@
                 </p>
             </div>
 
+            <!-- 绿坝放置游戏入口 -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title">🎮 绿 坝 放 置</h3>
+                <button type="button" id="openClickerBtn" class="friend-link-card clicker-entry">
+                    <span class="friend-link-icon">👆</span>
+                    <span class="friend-link-info">
+                        <span class="friend-link-name">玩绿坝放置</span>
+                        <span class="friend-link-desc">和谐点大作战 · 点击即玩</span>
+                    </span>
+                </button>
+            </div>
+
             <!-- 友情链接 -->
             <div class="sidebar-widget">
                 <h3 class="widget-title">🔗 友 情 链 接</h3>
@@ -348,6 +360,33 @@
     </script>
     <script src="js/navbar.js">
         //引入navbar.js
+    </script>
+
+    <!-- 绿坝放置 全屏游戏遮罩层 -->
+    <div id="clickerOverlay" class="clicker-overlay" hidden>
+        <button type="button" id="closeClickerBtn" class="clicker-close">✕ 返回</button>
+        <iframe class="clicker-frame" title="绿坝放置 - 和谐点大作战"
+                data-src="https://momordica2020.github.io/greendamClicker/"></iframe>
+    </div>
+    <script>
+    // 绿坝放置：全屏遮罩层嵌入游戏，点击入口打开 / ✕返回 或 Esc 关闭
+    (function() {
+        const overlay = document.getElementById('clickerOverlay');
+        const frame = overlay.querySelector('.clicker-frame');
+        document.getElementById('openClickerBtn').addEventListener('click', function() {
+            if (!frame.src) frame.src = frame.dataset.src; // 首次打开才加载游戏
+            overlay.hidden = false;
+            document.body.style.overflow = 'hidden';
+        });
+        function closeOverlay() {
+            overlay.hidden = true;
+            document.body.style.overflow = '';
+        }
+        document.getElementById('closeClickerBtn').addEventListener('click', closeOverlay);
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !overlay.hidden) closeOverlay();
+        });
+    })();
     </script>
 </body>
 </html>
