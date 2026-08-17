@@ -183,27 +183,8 @@
             <!-- 最新文章 -->
             <div class="sidebar-widget">
                 <h3 class="widget-title">📝 最 新 文 章</h3>
-                <ul class="latest-posts">
-                    <li>
-                        <a href="articles.html">博客重新开张啦！</a>
-                        <span class="latest-date">2026-07-23</span>
-                    </li>
-                    <li>
-                        <a href="articles.html">绿色上网小贴士</a>
-                        <span class="latest-date">2026-07-20</span>
-                    </li>
-                    <li>
-                        <a href="articles.html">我的生日到啦！</a>
-                        <span class="latest-date">2026-06-11</span>
-                    </li>
-                    <li>
-                        <a href="articles.html">六一儿童节快乐！</a>
-                        <span class="latest-date">2026-06-01</span>
-                    </li>
-                    <li>
-                        <a href="articles.html">关于绿坝-花季护航</a>
-                        <span class="latest-date">2026-05-15</span>
-                    </li>
+                <ul class="latest-posts" id="latestPosts">
+                    <!-- 由 JS 从 data/articles.json 动态加载，与文章列表页保持同步 -->
                 </ul>
             </div>
 
@@ -326,6 +307,26 @@
     <script src="js/themes/win98.js"></script>
     <script src="js/themes/pixel.js"></script>
     <script src="js/theme-manager.js"></script>
+    <script>
+    // 最新文章：与文章列表页共用 data/articles.json，按日期倒序取前5条
+    (async function() {
+        const list = document.getElementById('latestPosts');
+        try {
+            const res = await fetch('data/articles.json');
+            const articles = await res.json();
+            const latest = [...articles].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
+            list.innerHTML = latest.map(a => `
+                <li>
+                    <a href="articles.html">${a.title}</a>
+                    <span class="latest-date">${a.date}</span>
+                </li>
+            `).join('');
+        } catch (e) {
+            list.innerHTML = '<li><a href="articles.html">查看文章列表 →</a></li>';
+            console.error('最新文章加载失败:', e);
+        }
+    })();
+    </script>
     <script src="js/script.js"></script>
 
     <script src="js/vue-v3.5.40.js">
