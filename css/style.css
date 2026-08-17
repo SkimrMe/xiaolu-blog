@@ -666,3 +666,54 @@ body {
 .refresh-btn:active {
     transform: translateY(0);
 }
+
+/* 友情链接 */
+.friend-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.friend-link-card {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: 12px;
+    background: var(--green-bg, #f0fff0);
+    border: 1px solid var(--green-light, #90EE90);
+    text-decoration: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.friend-link-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(50, 205, 50, 0.25);
+    border-color: var(--green-main, #32CD32);
+}
+
+.friend-link-icon {
+    font-size: 1.6rem;
+    flex-shrink: 0;
+}
+
+.friend-link-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.friend-link-name {
+    font-weight: bold;
+    font-size: 0.95rem;
+    color: var(--green-deep, #228B22);
+}
+
+.friend-link-desc {
+    font-size: 0.78rem;
+    color: var(--green-dark, #2E8B57);
+    opacity: 0.85;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
