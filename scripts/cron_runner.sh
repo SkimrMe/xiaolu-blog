@@ -4,7 +4,7 @@
 # 持续运行，每天00:00执行每日回忆总结
 #
 # 启动方式（后台运行）：
-#   nohup /workspace/default/lvba-blog/scripts/cron_runner.sh &
+#   nohup /workspace/default/xiaolu-blog/scripts/cron_runner.sh &
 #
 # 停止方式：
 #   pkill -f cron_runner.sh
