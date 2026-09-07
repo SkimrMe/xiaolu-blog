@@ -292,8 +292,13 @@ def save_memories(memories: list, json_path: str):
 
 def git_commit_and_push(repo_dir: str, date_str: str):
     """自动提交并推送到 GitHub"""
+    # 外网代理（访问 GitHub 需要），已注入则不覆盖
+    proxy = 'http://192.168.0.92:18081'
+    for k in ('http_proxy', 'https_proxy', 'HTTP_PROXY', 'HTTPS_PROXY'):
+        os.environ.setdefault(k, proxy)
     try:
-        gh_token = os.environ.get('GH_TOKEN', '')
+        # Token 优先级：GH_TOKEN > NEKRO_RESOURCE_GITHUB_GITHUB > scripts/.gh_token
+        gh_token = os.environ.get('GH_TOKEN', '') or os.environ.get('NEKRO_RESOURCE_GITHUB_GITHUB', '')
         if not gh_token and os.path.exists(os.path.join(os.path.dirname(__file__), '.gh_token')):
             with open(os.path.join(os.path.dirname(__file__), '.gh_token')) as f:
                 gh_token = f.read().strip()
@@ -305,7 +310,9 @@ def git_commit_and_push(repo_dir: str, date_str: str):
                 cwd=repo_dir, capture_output=True
             )
 
-        subprocess.run(['git', 'add', 'data/'], cwd=repo_dir, capture_output=True, check=True)
+        # 仅提交记忆数据文件，避免误带入 data/ 下其他无关改动
+        subprocess.run(['git', 'add', 'data/memories.json', 'data/group_memory.json'],
+                       cwd=repo_dir, capture_output=True, check=True)
 
         result = subprocess.run(
             ['git', 'diff', '--cached', '--stat'],
